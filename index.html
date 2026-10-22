@@ -3,267 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quiz verbes espagnol (Paraguay)</title>
+<title>Mes quiz</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2030%2020'%3E%3Crect%20width='30'%20height='7'%20fill='%23D52B1E'/%3E%3Crect%20y='7'%20width='30'%20height='6'%20fill='%23FFFFFF'/%3E%3Crect%20y='13'%20width='30'%20height='7'%20fill='%230038A8'/%3E%3Ccircle%20cx='15'%20cy='10'%20r='3.2'%20fill='none'%20stroke='%232E7D32'%20stroke-width='1'/%3E%3Ccircle%20cx='15'%20cy='10'%20r='1'%20fill='%23F2C200'/%3E%3C/svg%3E">
 <style>
-:root{
-  --bg:#f5f5f2;--card:#ffffff;--text:#1f1f1c;--muted:#6b6b66;--border:#dcdcd5;--accent:#2f6fdb;
-  --ok-bg:#e3f4e8;--ok-tx:#1d6b3a;--warn-bg:#fdf1d6;--warn-tx:#8a5a00;--ko-bg:#fbe4e2;--ko-tx:#a3261b;
-  --acc-bg:#e2ecfb;--acc-tx:#1d4fa3;--pro-bg:#ece6fa;--pro-tx:#5230a8;
-}
-@media (prefers-color-scheme:dark){
-:root{
-  --bg:#18181a;--card:#242427;--text:#ececea;--muted:#9a9a94;--border:#3a3a3f;--accent:#6aa0ff;
-  --ok-bg:#1c3326;--ok-tx:#7fd69b;--warn-bg:#3a2f12;--warn-tx:#f0c35c;--ko-bg:#3b1f1d;--ko-tx:#ff9a8f;
-  --acc-bg:#1d2d4a;--acc-tx:#8fb6ff;--pro-bg:#2c2347;--pro-tx:#b9a0ff;
-}}
+:root{--bg:#f5f5f2;--card:#ffffff;--text:#1f1f1c;--muted:#6b6b66;--border:#dcdcd5;--accent:#2f6fdb}
+@media (prefers-color-scheme:dark){:root{--bg:#18181a;--card:#242427;--text:#ececea;--muted:#9a9a94;--border:#3a3a3f;--accent:#6aa0ff}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.4}
-#app{max-width:640px;margin:0 auto;padding:16px}
-#q{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;min-height:320px}
-button{font:inherit;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 16px;cursor:pointer}
-button:hover{border-color:var(--accent)}
-button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-input[type=text],textarea{font:inherit;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
-textarea{width:100%;resize:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
-.center{text-align:center}
-.muted{color:var(--muted)}
-.small{font-size:13px}
-h1{font-size:18px;font-weight:600;margin:0 0 8px}
-.top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:10px}
-.barwrap{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:24px}
-.bar{height:100%;width:100%;background:var(--accent)}
-.verb{text-align:center;font-size:30px;font-weight:600;margin:0 0 20px}
-.row{display:flex;gap:8px;justify-content:center}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.choices button{height:48px;font-size:17px}
-.sec{border-left:3px solid var(--border);padding:2px 0 2px 14px;margin:0 0 20px}
-.sec.s-ok{border-color:var(--ok-tx)}.sec.s-acc{border-color:var(--acc-tx)}.sec.s-pro{border-color:var(--pro-tx)}.sec.s-info{border-color:var(--accent)}
-.sechead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
-.sechead b{font-size:15px;font-weight:600}
-.grid{display:grid;gap:10px}
-.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
-@media (max-width:420px){.g3{grid-template-columns:1fr}}
-.stat{border-radius:10px;padding:12px 14px}
-.stat .l{font-size:13px}.stat .v{font-size:26px;font-weight:600;line-height:1.3}.stat .n{font-size:12px}
-.t-ok{background:var(--ok-bg);color:var(--ok-tx)}.t-warn{background:var(--warn-bg);color:var(--warn-tx)}
-.t-ko{background:var(--ko-bg);color:var(--ko-tx)}.t-acc{background:var(--acc-bg);color:var(--acc-tx)}.t-pro{background:var(--pro-bg);color:var(--pro-tx)}
-.err{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
-.badge{font-size:12px;padding:3px 10px;border-radius:8px;white-space:nowrap}
-details{font-size:13px;color:var(--muted);margin-top:14px}
-summary{cursor:pointer}
-.msg{min-height:18px;font-size:13px;margin:8px 0 0}
-.good{color:var(--ok-tx)}.bad{color:var(--ko-tx)}
+main{max-width:640px;margin:0 auto;padding:24px 16px}
+h1{font-size:22px;font-weight:600;margin:0 0 6px}
+p.sub{color:var(--muted);font-size:14px;margin:0 0 24px}
+.quiz{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:0 0 12px;text-decoration:none;color:inherit}
+.quiz:hover{border-color:var(--accent)}
+.quiz svg{width:44px;height:30px;flex:none;border-radius:4px;border:1px solid var(--border)}
+.quiz b{display:block;font-size:17px;font-weight:600}
+.quiz span{font-size:13px;color:var(--muted)}
 </style>
 </head>
 <body>
-<div id="app"><div id="q"></div></div>
-<script id="main-script">
-/* ===== Progression intégrée (réécrite par le bouton « Télécharger la version mise à jour ») ===== */
-const SAVED = "";
-const SAVED_TS = 0;
-/* ===== Réglages ===== */
-const N = 30;              // nombre de questions
-const T = 10000;           // durée de chaque phase (ms)
-const TOLERANCE = 2;       // nombre de lettres d'écart accepté pour une "erreur minime"
-const WMIN = 0.1, WMAX = 5;
-const COEF = { saisie:{ok:0.4,minime:0.7,pure:1.6}, choix:{ok:0.85,ko:1.6} };
-const STORAGE_KEY = "quiz_espagnol_paraguay_progression";
-
-/* ===== Liste des verbes : français|espagnol (variantes séparées par /) ===== */
-const RAW="accepter|aceptar;accompagner|acompañar;acheter|comprar;agir|actuar;aider|ayudar;aimer|amar/querer;ajouter|agregar/añadir;aller|ir;allumer|prender/encender;amener|llevar;annoncer|anunciar;s'appeler|llamarse;apporter|traer;apprendre|aprender;approcher|acercar;arnaquer|estafar;arrêter|parar/detener;arriver|llegar;s'asseoir|sentarse;attendre|esperar;attraper|agarrar/atrapar;avancer|avanzar;avoir|tener;baisser|bajar;boire|beber/tomar;bouger|mover;cacher|esconder/ocultar;casser|romper;changer|cambiar;chanter|cantar;chercher|buscar;choisir|elegir/escoger;commander|pedir/ordenar;commencer|empezar/comenzar;comprendre|entender/comprender;compter|contar;conduire|manejar/conducir;confondre|confundir;connaître|conocer;conseiller|aconsejar;construire|construir;continuer|continuar;se coucher|acostarse;couper|cortar;courir|correr;coûter|costar;couvrir|cubrir;crier|gritar;croire|creer;cuisiner|cocinar;danser|bailar;décider|decidir;demander|preguntar/pedir;dépenser|gastar;déranger|molestar/fastidiar;descendre|descender/bajar;dessiner|dibujar;détester|odiar;détruire|destruir;devenir|convertirse/volverse;devoir|deber;dire|decir;diriger|dirigir;discuter|conversar/charlar/discutir;disparaître|desaparecer;donner|dar;dormir|dormir;douter|dudar;écouter|escuchar;écrire|escribir;embrasser|besar;emmener|llevar;empêcher|impedir;emporter|llevarse;enlever|quitar/sacar;entendre|oír/oir;entrer|entrar;envoyer|mandar/enviar;espérer|esperar;essayer|intentar/probar;éteindre|apagar;être|ser/estar;étudier|estudiar;éviter|evitar;s'excuser|disculparse;exister|existir;expliquer|explicar;faire|hacer;falloir|hacer falta/ser necesario;fermer|cerrar;fêter|celebrar/festejar;finir|terminar/acabar;frapper|golpear;fumer|fumar;gagner|ganar;garder|guardar;gêner|incomodar/molestar;grandir|crecer;s'habiller|vestirse;habiter|habitar/vivir;imaginer|imaginar;s'inquiéter|preocuparse;interdire|prohibir;s'intéresser|interesarse;inviter|invitar;jeter|tirar/arrojar;jouer|jugar;laisser|dejar;lancer|lanzar;laver|lavar;se lever|levantarse;lire|leer;livrer|entregar;louer|alquilar;manager|gestionar/administrar;manger|comer;manipuler|manipular;manquer|faltar;marcher|caminar/andar;mélanger|mezclar;mentir|mentir;mériter|merecer;mettre|poner;monter|subir;montrer|mostrar/enseñar;mourir|morir;nager|nadar;naître|nacer;noter|anotar/apuntar;obliger|obligar;offrir|ofrecer/regalar;organiser|organizar;oublier|olvidar;ouvrir|abrir;paraître|aparecer/parecer;pardonner|perdonar;parler|hablar;partir|irse;passer|pasar;payer|pagar;penser|pensar;perdre|perder;permettre|permitir;plaire|gustar;pleurer|llorar;porter|cargar/llevar;poser|colocar/poner;pousser|empujar;pouvoir|poder;préférer|preferir;prendre|tomar;préparer|preparar;prévenir|avisar;prier|rezar;se promener|pasear;promettre|prometer;proposer|proponer;quitter|abandonar;raconter|contar/relatar;ranger|ordenar/arreglar;se rappeler|recordar;recevoir|recibir;réfléchir|reflexionar;refuser|rechazar;regarder|mirar;remercier|agradecer;remettre|volver a poner/reponer;rencontrer|encontrarse;rendre|devolver;rentrer|regresar;réparer|reparar/arreglar;répéter|repetir;répondre|responder/contestar;respecter|respetar;rester|quedarse;retourner|retornar;retrouver|reencontrar;réussir|lograr;se réveiller|despertarse;revenir|volver;rêver|soñar;rire|reír/reir;sauter|saltar;savoir|saber;sembler|parecer;se sentir|sentirse;servir|servir;sortir|salir;sourire|sonreír/sonreir;se souvenir|acordarse;suivre|seguir;téléphoner|llamar/telefonear;tenir|sostener;tirer|jalar/tirar;tomber|caer;toucher|tocar;tourner|girar/doblar;travailler|trabajar;traverser|cruzar/atravesar;tricher|hacer trampa/tramposear;trouver|encontrar/hallar;utiliser|usar/utilizar;vendre|vender;venir|venir;vivre|vivir;voir|ver;voler|robar/volar;vouloir|querer;voyager|viajar";
-const V = RAW.split(";").map(s=>{const p=s.split("|");return{f:p[0],a:p[1].split("/")}});
-
-/* ===== Code de progression (export / import) ===== */
-const B64="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-const clamp=w=>Math.min(WMAX,Math.max(WMIN,w));
-const lvl=w=>Math.round(Math.log(clamp(w)/WMIN)/Math.log(WMAX/WMIN)*63);
-const lw=l=>WMIN*Math.pow(WMAX/WMIN,l/63);
-function encodeRLE(L){let o="",i=0;while(i<L.length){let j=i;while(j<L.length&&L[j]===L[i])j++;const n=j-i;o+=n>=4?B64[L[i]]+"("+n+")":B64[L[i]].repeat(n);i=j}return o}
-function decodeRLE(b){const L=[];let i=0;while(i<b.length){const v=B64.indexOf(b[i]);if(v<0)return null;i++;let n=1;if(b[i]==="("){const e=b.indexOf(")",i);if(e<0)return null;const num=b.slice(i+1,e);if(!/^\d+$/.test(num))return null;n=parseInt(num,10);if(n<1||n>V.length)return null;i=e+1}for(let k=0;k<n;k++)L.push(v);if(L.length>V.length)return null}return L}
-function chk(L){let s=0;L.forEach((v,i)=>{s+=(v+1)*(i+1)});s%=4096;return B64[s>>6]+B64[s&63]}
-function makeCode(){const L=W.map(lvl);return"V2-"+encodeRLE(L)+"."+chk(L)}
-function loadCode(s){
-  s=s.replace(/\s+/g,"");
-  if(s.indexOf("V2-")===0){const r=s.slice(3);const d=r.lastIndexOf(".");if(d<0||r.length-d!==3)return false;const L=decodeRLE(r.slice(0,d));if(!L||L.length!==V.length)return false;if(chk(L)!==r.slice(d+1))return false;W=L.map(lw);return true}
-  if(s.indexOf("V1-")===0&&s.length===3+V.length){const b=s.slice(3);for(let i=0;i<b.length;i++){if(B64.indexOf(b[i])<0)return false}W=b.split("").map(ch=>lw(B64.indexOf(ch)));return true}
-  return false;
-}
-function saveLocal(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({c:makeCode(),t:Date.now()}))}catch(e){}}
-/* Chargement : progression intégrée au fichier, puis mémoire du navigateur si elle est plus récente */
-function loadInit(){
-  let ok=false;
-  if(SAVED){ok=loadCode(SAVED)}
-  try{
-    const raw=localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      let o;try{o=JSON.parse(raw)}catch(e){o={c:raw,t:0}}
-      if(o&&o.c&&(o.t||0)>=SAVED_TS&&loadCode(o.c)){ok=true}
-    }
-  }catch(e){}
-  return ok;
-}
-/* Vérifie que la mémoire du navigateur est utilisable */
-function storageOK(){try{const k="__test_quiz";localStorage.setItem(k,"1");localStorage.removeItem(k);return true}catch(e){return false}}
-/* Ouvre l'application de messagerie avec le code de progression dans le message */
-function sendByEmail(){
-  const body="Code de progression du quiz d'espagnol :\n\n"+makeCode()+"\n\nÀ coller dans « Exporter / importer ma progression » pour la retrouver.";
-  location.href="mailto:?subject="+encodeURIComponent("Progression quiz espagnol")+"&body="+encodeURIComponent(body);
-}
-/* Télécharge une copie du fichier avec la progression actuelle intégrée */
-function downloadUpdated(){
-  const code=makeCode(),ts=Date.now();
-  const clone=document.documentElement.cloneNode(true);
-  clone.querySelector("#q").innerHTML="";
-  const sc=clone.querySelector("#main-script");
-  let src=sc.textContent;
-  src=src.replace(/const SAVED = "[^"]*";/,()=>'const SAVED = "'+code+'";').replace(/const SAVED_TS = \d+;/,()=>"const SAVED_TS = "+ts+";");
-  sc.textContent=src;
-  const html="<!DOCTYPE html>\n"+clone.outerHTML;
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));
-  a.download="index.html";
-  document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
-}
-
-/* ===== Outils ===== */
-const root=document.getElementById("q");
-let W=V.map(()=>1),order,idx,R,timer,t0,cur,opts,homeMsg="",convHtml="";
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const norm=s=>s.trim().toLowerCase().replace(/\s+/g," ");
-const strip=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"");
-function lev(a,b){const m=[];for(let i=0;i<=a.length;i++){m[i]=[i]}for(let j=1;j<=b.length;j++){m[0][j]=j}for(let i=1;i<=a.length;i++){for(let j=1;j<=b.length;j++){m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1))}}return m[a.length][b.length]}
-function grade(inp,acc){
-  const n=norm(inp);
-  if(acc.indexOf(n)>-1)return"ok";
-  if(acc.some(x=>strip(x)===strip(n)))return"minime";
-  const d=Math.min.apply(null,acc.map(x=>lev(strip(x),strip(n))));
-  return(d<=TOLERANCE&&n.length>=3)?"minime":"pure";
-}
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t}return a}
-function drawWeighted(){
-  const pool=V.map((v,i)=>i),out=[];
-  while(out.length<N&&pool.length){
-    let tot=0;pool.forEach(i=>{tot+=W[i]});
-    let r=Math.random()*tot,k=0;
-    for(;k<pool.length-1;k++){r-=W[pool[k]];if(r<=0)break}
-    out.push(pool[k]);pool.splice(k,1);
-  }
-  return out;
-}
-
-/* ===== Déroulement du quiz ===== */
-function rec(group,res,given){R.push({g:group,r:res,i:order[idx],f:cur.f,ans:cur.a[0],given:given});idx++;next()}
-function start(){order=drawWeighted();idx=0;R=[];next()}
-
-function home(){
-  const changed=W.filter(w=>Math.abs(w-1)>0.02).length;
-  root.innerHTML=
-  '<div style="padding:10px 0"><h1 class="center">Verbes à l\'infinitif, espagnol du Paraguay</h1>'+
-  '<p class="center muted small" style="margin:0 0 18px">'+N+' questions · '+(T/1000)+' s pour écrire, puis '+(T/1000)+' s pour choisir parmi 4 propositions.</p>'+
-  '<p class="center small" style="margin:0 0 6px;min-height:18px">'+homeMsg+'</p>'+
-  (storageOK()?'':'<p class="center bad small" style="margin:0 0 8px">La mémoire du navigateur est indisponible ici : la progression ne sera pas conservée. Utilisez le code d\'export.</p>')+
-  '<p class="center muted small" style="margin:0 0 16px">'+(changed?changed+' verbe'+(changed>1?'s':'')+' avec un poids personnalisé (progression enregistrée sur cet appareil).':'Aucune progression : tous les verbes ont le même poids.')+'</p>'+
-  '<div class="center" style="margin-bottom:10px"><button class="primary" id="go">Démarrer</button></div>'+
-  '<details '+(convHtml?'open':'')+'><summary>Exporter / importer ma progression</summary>'+
-  '<p class="small" style="margin:8px 0 4px">Code actuel (à garder pour changer d\'appareil ou sauvegarder) :</p>'+
-  '<textarea id="cur" readonly rows="2">'+makeCode()+'</textarea>'+
-  '<p class="small" style="margin:12px 0 4px">Importer un code (V1 ou V2) :</p>'+
-  '<div class="row"><input type="text" id="cd" placeholder="V2-..." autocomplete="off" spellcheck="false" style="flex:1;min-width:0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px"><button id="ld">Charger</button></div>'+
-  '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button id="dl">Télécharger la version mise à jour</button><button id="em">M\'envoyer le code par email</button><button id="rz">Remettre tous les poids à zéro</button></div></details></div>';
-  document.getElementById("go").onclick=start;
-  document.getElementById("dl").onclick=downloadUpdated;
-  document.getElementById("em").onclick=sendByEmail;
-  document.getElementById("ld").onclick=()=>{
-    const v=document.getElementById("cd").value;
-    if(loadCode(v)){saveLocal();homeMsg='<span class="good">Code chargé et vérifié.</span>';convHtml="1"}
-    else{homeMsg='<span class="bad">Code invalide ou incomplet : rien n\'a été chargé.</span>'}
-    home();
-  };
-  document.getElementById("rz").onclick=()=>{
-    if(confirm("Remettre tous les poids à zéro ? La progression sera perdue.")){W=V.map(()=>1);saveLocal();homeMsg='<span class="good">Progression remise à zéro.</span>';home()}
-  };
-}
-
-function head(){
-  return '<div class="top"><span>Question '+(idx+1)+' / '+N+'</span><span id="tl">'+(T/1000)+' s</span></div>'+
-  '<div class="barwrap"><div class="bar" id="bar"></div></div>'+
-  '<p class="verb">'+esc(cur.f)+'</p>';
-}
-function tick(cb){
-  clearInterval(timer);t0=Date.now();
-  timer=setInterval(()=>{
-    const r=Math.max(0,T-(Date.now()-t0));
-    document.getElementById("bar").style.width=(r/T*100)+"%";
-    document.getElementById("tl").textContent=Math.ceil(r/1000)+" s";
-    if(r<=0){clearInterval(timer);cb()}
-  },100);
-}
-function next(){
-  if(idx>=N){return end()}
-  cur=V[order[idx]];
-  root.innerHTML=head()+'<div class="row"><input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Verbe en espagnol" style="width:260px"><button class="primary" id="ok">Valider</button></div><p id="er" class="msg bad center"></p>';
-  const inp=document.getElementById("in");inp.focus();
-  inp.oninput=()=>{document.getElementById("er").textContent=""};
-  const sub=()=>{
-    if(!norm(inp.value)){document.getElementById("er").textContent="Écrivez un verbe, ou attendez la fin du temps.";return}
-    clearInterval(timer);rec("saisie",grade(inp.value,cur.a),inp.value.trim());
-  };
-  document.getElementById("ok").onclick=sub;
-  inp.onkeydown=e=>{if(e.key==="Enter")sub()};
-  tick(()=>{if(norm(inp.value)){rec("saisie",grade(inp.value,cur.a),inp.value.trim())}else{choices()}});
-}
-function choices(){
-  const pool=shuffle(V.filter(v=>v!==cur&&cur.a.indexOf(v.a[0])<0).map(v=>v.a[0]));
-  const d=[];pool.forEach(x=>{if(d.length<3&&d.indexOf(x)<0)d.push(x)});
-  opts=shuffle([cur.a[0]].concat(d));
-  root.innerHTML=head()+'<p class="center muted small" style="margin:0 0 12px">Choisissez la bonne réponse</p><div class="choices">'+opts.map((o,i)=>'<button data-i="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
-  root.querySelectorAll("button[data-i]").forEach(b=>{b.onclick=()=>{clearInterval(timer);const o=opts[+b.dataset.i];rec("choix",o===cur.a[0]?"ok":"ko",o)}});
-  tick(()=>{rec("choix","ko","")});
-}
-
-/* ===== Bilan ===== */
-function p(n,t){return t?(Math.round(n/t*1000)/10)+" %":"–"}
-function stat(cls,l,n,t){return '<div class="stat '+cls+'"><div class="l">'+l+'</div><div class="v">'+p(n,t)+'</div><div class="n">'+n+' / '+t+'</div></div>'}
-function sec(cls,title,sub,inner,g){return '<div class="sec '+cls+'"><div class="sechead"><b>'+title+'</b><span class="muted small">'+sub+'</span></div><div class="grid '+g+'">'+inner+'</div></div>'}
-function end(){
-  clearInterval(timer);
-  R.forEach(x=>{W[x.i]=clamp(W[x.i]*COEF[x.g][x.r])});
-  saveLocal();
-  const S=R.filter(x=>x.g==="saisie"),C=R.filter(x=>x.g==="choix");
-  const c=(a,r)=>a.filter(x=>x.r===r).length;
-  const sOk=c(S,"ok"),sMin=c(S,"minime"),sPur=c(S,"pure"),cOk=c(C,"ok"),cKo=c(C,"ko");
-  let h='<h1>Bilan</h1>';
-  h+=sec("s-ok","Vue d'ensemble","rapportée aux "+N+" questions",stat("t-ok","Saisie correcte",sOk,N)+stat("t-warn","Saisie correcte + minime",sOk+sMin,N),"g2");
-  h+=sec("s-acc","Répartition des "+N+" questions","mode de réponse",stat("t-acc","Saisie",S.length,N)+stat("t-pro","Choix dans la liste",C.length,N),"g2");
-  h+=sec("s-acc","Saisie","sur "+S.length+" question"+(S.length>1?"s":""),stat("t-ok","Correct",sOk,S.length)+stat("t-warn","Erreur minime",sMin,S.length)+stat("t-ko","Erreur complète",sPur,S.length),"g3");
-  h+=sec("s-pro","Choix dans la liste","sur "+C.length+" question"+(C.length>1?"s":""),stat("t-ok","Correct",cOk,C.length)+stat("t-ko","Incorrect",cKo,C.length),"g2");
-  const lab={pure:["t-ko","Saisie, erreur complète"],minime:["t-warn","Saisie, erreur minime"],ko:["t-ko","Choix, incorrect"]};
-  const E=R.filter(x=>x.r!=="ok");
-  h+='<p style="font-size:15px;font-weight:600;margin:0 0 8px">Liste des erreurs ('+E.length+')</p>';
-  if(E.length){
-    h+='<div style="border-top:1px solid var(--border);margin-bottom:20px">'+E.map(e=>{const l=lab[e.r];return '<div class="err"><span><b>'+esc(e.f)+'</b> → '+esc(e.ans)+(e.given?' <span class="muted">(vous : '+esc(e.given)+')</span>':' <span class="muted">(aucune réponse)</span>')+'</span><span class="badge '+l[0]+'">'+l[1]+'</span></div>'}).join("")+'</div>';
-  } else {
-    h+='<p class="good" style="margin:0 0 20px">Aucune erreur.</p>';
-  }
-  const maitrises=W.filter(w=>w<=0.2).length,arevoir=W.filter(w=>w>=2).length;
-  h+='<div class="sec s-info"><div class="sechead"><b>Progression</b><span class="muted small">enregistrée dans ce navigateur</span></div>'+
-     '<p class="muted small" style="margin:0 0 10px">Verbes très bien maîtrisés : '+maitrises+' / '+V.length+' · à revoir en priorité : '+arevoir+' / '+V.length+'</p>'+
-     '<div style="display:flex;gap:8px;flex-wrap:wrap"><button id="dl">Télécharger la version mise à jour</button><button id="em">M\'envoyer le code par email</button></div>'+
-     '<p class="muted small" style="margin:8px 0 0">Crée un fichier avec la progression intégrée : enregistrez-le sous le même nom pour remplacer l\'ancien.</p></div>';
-  h+='<div class="row"><button class="primary" id="re">Recommencer</button><button id="hm">Accueil</button></div>';
-  root.innerHTML=h;
-  document.getElementById("re").onclick=start;
-  document.getElementById("dl").onclick=downloadUpdated;
-  document.getElementById("em").onclick=sendByEmail;
-  document.getElementById("hm").onclick=()=>{homeMsg="";convHtml="";home()};
-}
-
-/* ===== Démarrage ===== */
-/* Demande au navigateur de ne pas effacer automatiquement la mémoire du site */
-try{if(navigator.storage&&navigator.storage.persist){navigator.storage.persist()}}catch(e){}
-if(loadInit()){homeMsg='<span class="good">Progression retrouvée.</span>'}
-home();
-</script>
+<main>
+<h1>Mes quiz</h1>
+<p class="sub">Choisissez un quiz.</p>
+<a class="quiz" href="espagnol-verbes/">
+<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="7" fill="#D52B1E"/><rect y="7" width="30" height="6" fill="#FFFFFF"/><rect y="13" width="30" height="7" fill="#0038A8"/><circle cx="15" cy="10" r="3.2" fill="none" stroke="#2E7D32" stroke-width="1"/><circle cx="15" cy="10" r="1" fill="#F2C200"/></svg>
+<div><b>Verbes espagnol (Paraguay)</b><span>30 questions · infinitifs · progression enregistrée</span></div>
+</a>
+</main>
 </body>
 </html>
