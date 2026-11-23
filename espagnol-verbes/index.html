@@ -19,252 +19,647 @@
 }}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.4}
-#app{max-width:640px;margin:0 auto;padding:16px}
+#app{max-width:680px;margin:0 auto;padding:16px}
 #q{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;min-height:320px}
+.back{margin:0 0 10px}.back a{color:var(--muted);font-size:13px;text-decoration:none}
 button{font:inherit;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 16px;cursor:pointer}
 button:hover{border-color:var(--accent)}
 button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-input[type=text],textarea{font:inherit;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
-textarea{width:100%;resize:none;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
-.center{text-align:center}
-.muted{color:var(--muted)}
-.small{font-size:13px}
+button.small{padding:4px 10px;font-size:13px}
+input[type=text],input[type=email],textarea{font:inherit;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px}
+textarea{width:100%;resize:vertical;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}
+.center{text-align:center}.muted{color:var(--muted)}.small{font-size:13px}
+.good{color:var(--ok-tx)}.bad{color:var(--ko-tx)}
 h1{font-size:18px;font-weight:600;margin:0 0 8px}
+h2{font-size:15px;font-weight:600;margin:18px 0 8px}
 .top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:10px}
-.barwrap{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:24px}
+.bar-wrap{height:6px;background:var(--bg);border-radius:3px;overflow:hidden;margin-bottom:24px}
 .bar{height:100%;width:100%;background:var(--accent)}
 .verb{text-align:center;font-size:30px;font-weight:600;margin:0 0 20px}
-.row{display:flex;gap:8px;justify-content:center}
+.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .choices button{height:48px;font-size:17px}
 .sec{border-left:3px solid var(--border);padding:2px 0 2px 14px;margin:0 0 20px}
 .sec.s-ok{border-color:var(--ok-tx)}.sec.s-acc{border-color:var(--acc-tx)}.sec.s-pro{border-color:var(--pro-tx)}.sec.s-info{border-color:var(--accent)}
-.sechead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:8px}
 .sechead b{font-size:15px;font-weight:600}
-.grid{display:grid;gap:10px}
-.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
-@media (max-width:420px){.g3{grid-template-columns:1fr}}
+.grid{display:grid;gap:10px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:460px){.g3{grid-template-columns:1fr}}
 .stat{border-radius:10px;padding:12px 14px}
 .stat .l{font-size:13px}.stat .v{font-size:26px;font-weight:600;line-height:1.3}.stat .n{font-size:12px}
 .t-ok{background:var(--ok-bg);color:var(--ok-tx)}.t-warn{background:var(--warn-bg);color:var(--warn-tx)}
 .t-ko{background:var(--ko-bg);color:var(--ko-tx)}.t-acc{background:var(--acc-bg);color:var(--acc-tx)}.t-pro{background:var(--pro-bg);color:var(--pro-tx)}
 .err{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px}
 .badge{font-size:12px;padding:3px 10px;border-radius:8px;white-space:nowrap}
-details{font-size:13px;color:var(--muted);margin-top:14px}
-summary{cursor:pointer}
+.banner{border-radius:10px;padding:10px 14px;margin:0 0 14px;font-size:13px}
 .msg{min-height:18px;font-size:13px;margin:8px 0 0}
-.good{color:var(--ok-tx)}.bad{color:var(--ko-tx)}
+.userbar{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:var(--muted);margin-bottom:14px}
+.menu{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+table.cmp{width:100%;border-collapse:collapse;font-size:14px}
+table.cmp th,table.cmp td{padding:6px 4px;border-bottom:1px solid var(--border);text-align:right}
+table.cmp th:first-child,table.cmp td:first-child{text-align:left}
+table.cmp th{font-size:12px;font-weight:600;color:var(--muted)}
+.vrow{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--border);font-size:14px}
+.vrow .id{color:var(--muted);width:34px;flex:none;font-size:12px}
+.vrow .t{flex:1;min-width:0}
+.off{opacity:.5}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
 </style>
 </head>
 <body>
-<div id="app"><p style="margin:0 0 10px"><a href="../" style="color:var(--muted);font-size:13px;text-decoration:none">← Tous les quiz</a></p><div id="q"></div></div>
-<script id="main-script">
-/* ===== Progression intégrée (réécrite par le bouton « Télécharger la version mise à jour ») ===== */
-const SAVED = "";
-const SAVED_TS = 0;
+<div id="app"><p class="back"><a href="../">← Tous les quiz</a></p><div id="q"></div></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script>
+"use strict";
+/* =====================================================================
+   À RENSEIGNER : adresse du projet et clé « publishable » de Supabase
+   (Project Settings > API Keys). Jamais la clé « secret ».
+   ===================================================================== */
+const SUPABASE_URL = "https://stptmmbdqiideisuiaez.supabase.co";
+const SUPABASE_KEY = "sb_publishable_YohnI0HNx9y9z4XlQ3zt0g_9K0ht-ca";
+
 /* ===== Réglages ===== */
-const N = 30;              // nombre de questions
+const N = 30;              // nombre de questions par quiz
 const T = 10000;           // durée de chaque phase (ms)
-const TOLERANCE = 2;       // nombre de lettres d'écart accepté pour une "erreur minime"
+const TOLERANCE = 2;       // lettres d'écart acceptées pour une « erreur minime »
 const WMIN = 0.1, WMAX = 5;
 const COEF = { saisie:{ok:0.4,minime:0.7,pure:1.6}, choix:{ok:0.85,ko:1.6} };
-const STORAGE_KEY = "quiz_espagnol_paraguay_progression";
-
-/* ===== Liste des verbes : français|espagnol (variantes séparées par /) ===== */
-const RAW="accepter|aceptar;accompagner|acompañar;acheter|comprar;agir|actuar;aider|ayudar;aimer|amar/querer;ajouter|agregar/añadir;aller|ir;allumer|prender/encender;amener|llevar;annoncer|anunciar;s'appeler|llamarse;apporter|traer;apprendre|aprender;approcher|acercar;arnaquer|estafar;arrêter|parar/detener;arriver|llegar;s'asseoir|sentarse;attendre|esperar;attraper|agarrar/atrapar;avancer|avanzar;avoir|tener;baisser|bajar;boire|beber/tomar;bouger|mover;cacher|esconder/ocultar;casser|romper;changer|cambiar;chanter|cantar;chercher|buscar;choisir|elegir/escoger;commander|pedir/ordenar;commencer|empezar/comenzar;comprendre|entender/comprender;compter|contar;conduire|manejar/conducir;confondre|confundir;connaître|conocer;conseiller|aconsejar;construire|construir;continuer|continuar;se coucher|acostarse;couper|cortar;courir|correr;coûter|costar;couvrir|cubrir;crier|gritar;croire|creer;cuisiner|cocinar;danser|bailar;décider|decidir;demander|preguntar/pedir;dépenser|gastar;déranger|molestar/fastidiar;descendre|descender/bajar;dessiner|dibujar;détester|odiar;détruire|destruir;devenir|convertirse/volverse;devoir|deber;dire|decir;diriger|dirigir;discuter|conversar/charlar/discutir;disparaître|desaparecer;donner|dar;dormir|dormir;douter|dudar;écouter|escuchar;écrire|escribir;embrasser|besar;emmener|llevar;empêcher|impedir;emporter|llevarse;enlever|quitar/sacar;entendre|oír/oir;entrer|entrar;envoyer|mandar/enviar;espérer|esperar;essayer|intentar/probar;éteindre|apagar;être|ser/estar;étudier|estudiar;éviter|evitar;s'excuser|disculparse;exister|existir;expliquer|explicar;faire|hacer;falloir|hacer falta/ser necesario;fermer|cerrar;fêter|celebrar/festejar;finir|terminar/acabar;frapper|golpear;fumer|fumar;gagner|ganar;garder|guardar;gêner|incomodar/molestar;grandir|crecer;s'habiller|vestirse;habiter|habitar/vivir;imaginer|imaginar;s'inquiéter|preocuparse;interdire|prohibir;s'intéresser|interesarse;inviter|invitar;jeter|tirar/arrojar;jouer|jugar;laisser|dejar;lancer|lanzar;laver|lavar;se lever|levantarse;lire|leer;livrer|entregar;louer|alquilar;manager|gestionar/administrar;manger|comer;manipuler|manipular;manquer|faltar;marcher|caminar/andar;mélanger|mezclar;mentir|mentir;mériter|merecer;mettre|poner;monter|subir;montrer|mostrar/enseñar;mourir|morir;nager|nadar;naître|nacer;noter|anotar/apuntar;obliger|obligar;offrir|ofrecer/regalar;organiser|organizar;oublier|olvidar;ouvrir|abrir;paraître|aparecer/parecer;pardonner|perdonar;parler|hablar;partir|irse;passer|pasar;payer|pagar;penser|pensar;perdre|perder;permettre|permitir;plaire|gustar;pleurer|llorar;porter|cargar/llevar;poser|colocar/poner;pousser|empujar;pouvoir|poder;préférer|preferir;prendre|tomar;préparer|preparar;prévenir|avisar;prier|rezar;se promener|pasear;promettre|prometer;proposer|proponer;quitter|abandonar;raconter|contar/relatar;ranger|ordenar/arreglar;se rappeler|recordar;recevoir|recibir;réfléchir|reflexionar;refuser|rechazar;regarder|mirar;remercier|agradecer;remettre|volver a poner/reponer;rencontrer|encontrarse;rendre|devolver;rentrer|regresar;réparer|reparar/arreglar;répéter|repetir;répondre|responder/contestar;respecter|respetar;rester|quedarse;retourner|retornar;retrouver|reencontrar;réussir|lograr;se réveiller|despertarse;revenir|volver;rêver|soñar;rire|reír/reir;sauter|saltar;savoir|saber;sembler|parecer;se sentir|sentirse;servir|servir;sortir|salir;sourire|sonreír/sonreir;se souvenir|acordarse;suivre|seguir;téléphoner|llamar/telefonear;tenir|sostener;tirer|jalar/tirar;tomber|caer;toucher|tocar;tourner|girar/doblar;travailler|trabajar;traverser|cruzar/atravesar;tricher|hacer trampa/tramposear;trouver|encontrar/hallar;utiliser|usar/utilizar;vendre|vender;venir|venir;vivre|vivir;voir|ver;voler|robar/volar;vouloir|querer;voyager|viajar";
-const V = RAW.split(";").map(s=>{const p=s.split("|");return{f:p[0],a:p[1].split("/")}});
-
-/* ===== Code de progression (export / import) ===== */
-const B64="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-const clamp=w=>Math.min(WMAX,Math.max(WMIN,w));
-const lvl=w=>Math.round(Math.log(clamp(w)/WMIN)/Math.log(WMAX/WMIN)*63);
-const lw=l=>WMIN*Math.pow(WMAX/WMIN,l/63);
-function encodeRLE(L){let o="",i=0;while(i<L.length){let j=i;while(j<L.length&&L[j]===L[i])j++;const n=j-i;o+=n>=4?B64[L[i]]+"("+n+")":B64[L[i]].repeat(n);i=j}return o}
-function decodeRLE(b){const L=[];let i=0;while(i<b.length){const v=B64.indexOf(b[i]);if(v<0)return null;i++;let n=1;if(b[i]==="("){const e=b.indexOf(")",i);if(e<0)return null;const num=b.slice(i+1,e);if(!/^\d+$/.test(num))return null;n=parseInt(num,10);if(n<1||n>V.length)return null;i=e+1}for(let k=0;k<n;k++)L.push(v);if(L.length>V.length)return null}return L}
-function chk(L){let s=0;L.forEach((v,i)=>{s+=(v+1)*(i+1)});s%=4096;return B64[s>>6]+B64[s&63]}
-function makeCode(){const L=W.map(lvl);return"V2-"+encodeRLE(L)+"."+chk(L)}
-function loadCode(s){
-  s=s.replace(/\s+/g,"");
-  if(s.indexOf("V2-")===0){const r=s.slice(3);const d=r.lastIndexOf(".");if(d<0||r.length-d!==3)return false;const L=decodeRLE(r.slice(0,d));if(!L||L.length!==V.length)return false;if(chk(L)!==r.slice(d+1))return false;W=L.map(lw);return true}
-  if(s.indexOf("V1-")===0&&s.length===3+V.length){const b=s.slice(3);for(let i=0;i<b.length;i++){if(B64.indexOf(b[i])<0)return false}W=b.split("").map(ch=>lw(B64.indexOf(ch)));return true}
-  return false;
-}
-function saveLocal(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({c:makeCode(),t:Date.now()}))}catch(e){}}
-/* Chargement : progression intégrée au fichier, puis mémoire du navigateur si elle est plus récente */
-function loadInit(){
-  let ok=false;
-  if(SAVED){ok=loadCode(SAVED)}
-  try{
-    const raw=localStorage.getItem(STORAGE_KEY);
-    if(raw){
-      let o;try{o=JSON.parse(raw)}catch(e){o={c:raw,t:0}}
-      if(o&&o.c&&(o.t||0)>=SAVED_TS&&loadCode(o.c)){ok=true}
-    }
-  }catch(e){}
-  return ok;
-}
-/* Vérifie que la mémoire du navigateur est utilisable */
-function storageOK(){try{const k="__test_quiz";localStorage.setItem(k,"1");localStorage.removeItem(k);return true}catch(e){return false}}
-/* Ouvre l'application de messagerie avec le code de progression dans le message */
-function sendByEmail(){
-  const body="Code de progression du quiz d'espagnol :\n\n"+makeCode()+"\n\nÀ coller dans « Exporter / importer ma progression » pour la retrouver.";
-  location.href="mailto:?subject="+encodeURIComponent("Progression quiz espagnol")+"&body="+encodeURIComponent(body);
-}
-/* Télécharge une copie du fichier avec la progression actuelle intégrée */
-function downloadUpdated(){
-  const code=makeCode(),ts=Date.now();
-  const clone=document.documentElement.cloneNode(true);
-  clone.querySelector("#q").innerHTML="";
-  const sc=clone.querySelector("#main-script");
-  let src=sc.textContent;
-  src=src.replace(/const SAVED = "[^"]*";/,()=>'const SAVED = "'+code+'";').replace(/const SAVED_TS = \d+;/,()=>"const SAVED_TS = "+ts+";");
-  sc.textContent=src;
-  const html="<!DOCTYPE html>\n"+clone.outerHTML;
-  const a=document.createElement("a");
-  a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));
-  a.download="index.html";
-  document.body.appendChild(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(a.href),3000);
-}
+const LEGACY_N = 209;      // nombre de verbes de l'ancienne version (import de progression)
+const B64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+const K = { cache:"quizv2_cache", pending:"quizv2_pending", legacy:"quiz_espagnol_paraguay_progression", legacyDone:"quizv2_legacy_done" };
 
 /* ===== Outils ===== */
-const root=document.getElementById("q");
-let W=V.map(()=>1),order,idx,R,timer,t0,cur,opts,homeMsg="",convHtml="";
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const norm=s=>s.trim().toLowerCase().replace(/\s+/g," ");
-const strip=s=>s.normalize("NFD").replace(/[̀-ͯ]/g,"");
-function lev(a,b){const m=[];for(let i=0;i<=a.length;i++){m[i]=[i]}for(let j=1;j<=b.length;j++){m[0][j]=j}for(let i=1;i<=a.length;i++){for(let j=1;j<=b.length;j++){m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1))}}return m[a.length][b.length]}
-function grade(inp,acc){
-  const n=norm(inp);
-  if(acc.indexOf(n)>-1)return"ok";
-  if(acc.some(x=>strip(x)===strip(n)))return"minime";
-  const d=Math.min.apply(null,acc.map(x=>lev(strip(x),strip(n))));
-  return(d<=TOLERANCE&&n.length>=3)?"minime":"pure";
+const root = document.getElementById("q");
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const clamp = w => Math.min(WMAX, Math.max(WMIN, w));
+const norm = s => String(s).trim().toLowerCase().replace(/\s+/g, " ");
+const strip = s => s.normalize("NFD").replace(/[̀-ͯ]/g, "");
+function lsGet(k){ try{ const v = localStorage.getItem(k); return v == null ? null : JSON.parse(v); }catch(e){ return null; } }
+function lsSet(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } }
+function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+function uuid(){
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  const b = new Uint8Array(16); crypto.getRandomValues(b); b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+  const h = Array.from(b).map(x => x.toString(16).padStart(2, "0")).join("");
+  return h.slice(0,8)+"-"+h.slice(8,12)+"-"+h.slice(12,16)+"-"+h.slice(16,20)+"-"+h.slice(20);
 }
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));const t=a[i];a[i]=a[j];a[j]=t}return a}
-function drawWeighted(){
-  const pool=V.map((v,i)=>i),out=[];
-  while(out.length<N&&pool.length){
-    let tot=0;pool.forEach(i=>{tot+=W[i]});
-    let r=Math.random()*tot,k=0;
-    for(;k<pool.length-1;k++){r-=W[pool[k]];if(r<=0)break}
-    out.push(pool[k]);pool.splice(k,1);
+function lev(a, b){
+  const m = []; for (let i = 0; i <= a.length; i++) m[i] = [i];
+  for (let j = 1; j <= b.length; j++) m[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    m[i][j] = Math.min(m[i-1][j]+1, m[i][j-1]+1, m[i-1][j-1] + (a[i-1] === b[j-1] ? 0 : 1));
+  return m[a.length][b.length];
+}
+function grade(inp, accepted){
+  const acc = accepted.map(norm), n = norm(inp);
+  if (acc.indexOf(n) > -1) return "ok";
+  if (acc.some(x => strip(x) === strip(n))) return "minime";
+  const d = Math.min.apply(null, acc.map(x => lev(strip(x), strip(n))));
+  return (d <= TOLERANCE && n.length >= 3) ? "minime" : "pure";
+}
+function shuffle(a){ a = a.slice(); for (let i = a.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); const t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function pct(x){ return (x == null || isNaN(x)) ? "–" : (Math.round(x*1000)/10) + " %"; }
+function frac(n, t){ return t ? n / t : null; }
+function ago(ts){
+  if (!ts) return "jamais";
+  const m = Math.floor((Date.now() - ts) / 60000);
+  if (m < 1) return "à l'instant";
+  if (m < 60) return "il y a " + m + " min";
+  const h = Math.floor(m / 60);
+  if (h < 48) return "il y a " + h + " h";
+  return "il y a " + Math.floor(h / 24) + " jours";
+}
+function isNetErr(e){ return !!e && (e.name === "AuthRetryableFetchError" || e.status === 0 || /fetch|network|load failed/i.test(e.message || "")); }
+
+/* ===== État ===== */
+const HASH_ERR = (() => { try{ const h = new URLSearchParams(location.hash.replace(/^#/, "")); return !!(h.get("error_description") || h.get("error")); }catch(e){ return false; } })();
+const S = { user:null, role:"user", verbs:[], W:{}, offline:false, pending:[], lastSync:0 };
+let sb = null, HASH_ERR_SHOWN = false;
+if (window.supabase && SUPABASE_URL && SUPABASE_KEY){
+  try{ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true } }); }catch(e){ sb = null; }
+}
+function saveCache(){ lsSet(K.cache, { user:S.user, role:S.role, verbs:S.verbs, W:S.W, lastSync:S.lastSync }); }
+function savePending(){
+  const others = (lsGet(K.pending) || []).filter(p => !S.user || p.uid !== S.user.id);
+  lsSet(K.pending, others.concat(S.pending));
+}
+function useCache(c){
+  S.user = c.user; S.role = c.role || "user"; S.verbs = c.verbs || []; S.W = c.W || {}; S.lastSync = c.lastSync || 0;
+  S.pending = (lsGet(K.pending) || []).filter(p => p.uid === S.user.id);
+}
+
+/* ===== Synchronisation ===== */
+/* Les requêtes sont limitées dans le temps : hors ligne, la bibliothèque réessaie
+   plusieurs secondes avant d'abandonner, ce qui laisserait un écran vide. */
+function wt(p, ms){ return Promise.race([p, new Promise(res => setTimeout(() => res({ error:{ message:"timeout", name:"Timeout" } }), ms || 4000))]); }
+async function pushSession(p){
+  try{
+    const uid = S.user.id;
+    let r = await wt(sb.from("sessions").upsert([Object.assign({ id:p.id, user_id:uid, played_at:p.played_at }, p.sum)], { onConflict:"id", ignoreDuplicates:true }), 8000);
+    if (r.error) return false;
+    r = await wt(sb.from("answers").upsert(p.answers.map(a => Object.assign({ session_id:p.id, user_id:uid }, a)), { onConflict:"session_id,position", ignoreDuplicates:true }), 8000);
+    if (r.error) return false;
+    r = await wt(sb.from("progress").upsert(p.weights.map(w => ({ user_id:uid, verb_id:w.verb_id, weight:w.weight, updated_at:new Date().toISOString() })), { onConflict:"user_id,verb_id" }), 8000);
+    return !r.error;
+  }catch(e){ return false; }
+}
+async function flushPending(){
+  if (!sb || !S.user) return;
+  const rest = []; let stop = false;
+  for (const p of S.pending){
+    if (stop){ rest.push(p); continue; }
+    const ok = await pushSession(p);
+    if (!ok){ rest.push(p); stop = true; }
+  }
+  S.pending = rest; savePending();
+}
+async function loadAll(){
+  const cache = lsGet(K.cache);
+  const cacheW = (cache && cache.user && cache.user.id === S.user.id && cache.W) || null;
+  S.pending = (lsGet(K.pending) || []).filter(p => p.uid === S.user.id);
+  if (S.pending.length) await flushPending();
+  let pr, vr, gr;
+  try{
+    [pr, vr, gr] = await Promise.all([
+      wt(sb.from("profiles").select("role").eq("user_id", S.user.id).maybeSingle()),
+      wt(sb.from("verbs").select("id,fr,es").eq("active", true).order("id").range(0, 999)),
+      wt(sb.from("progress").select("verb_id,weight").range(0, 999))
+    ]);
+  }catch(e){ pr = vr = gr = { error:e }; }
+  if (pr.error || vr.error || gr.error){
+    S.offline = true;
+    if (cache && cache.user && cache.user.id === S.user.id && cache.verbs){ useCache(cache); S.offline = true; }
+    return false;
+  }
+  S.role = (pr.data && pr.data.role) || "user";
+  S.verbs = vr.data || [];
+  const server = {}; (gr.data || []).forEach(r => { server[r.verb_id] = r.weight; });
+  S.W = S.pending.length && cacheW ? Object.assign({}, server, cacheW) : server;
+  S.offline = false; S.lastSync = Date.now();
+  saveCache();
+  return true;
+}
+async function reloadVerbs(){
+  const r = await sb.from("verbs").select("id,fr,es").eq("active", true).order("id").range(0, 999);
+  if (!r.error){ S.verbs = r.data || []; saveCache(); }
+}
+
+/* ===== Démarrage et connexion ===== */
+function readHashError(){
+  if (HASH_ERR){ try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){} }
+  return HASH_ERR;
+}
+function screenMsg(title, html){ root.innerHTML = '<div class="center" style="padding:2rem 0"><h1>'+esc(title)+'</h1><div class="muted small">'+html+'</div></div>'; }
+function screenSetup(){
+  screenMsg("Configuration à terminer", "Renseignez <b>SUPABASE_URL</b> et <b>SUPABASE_KEY</b> (clé « publishable ») au début du script de ce fichier, puis rechargez la page.");
+}
+async function boot(){
+  clearInterval(timer);
+  if (!SUPABASE_URL || !SUPABASE_KEY) return screenSetup();
+  screenMsg("Chargement…", "");
+  const cache = lsGet(K.cache);
+  const cacheOK = cache && cache.user && cache.verbs && cache.verbs.length;
+  if (!sb){
+    if (cacheOK){ useCache(cache); S.offline = true; return home(); }
+    return screenMsg("Connexion impossible", "Le service de connexion n'a pas pu être chargé. Vérifiez votre connexion internet puis rechargez la page.");
+  }
+  const hashErr = readHashError();
+  HASH_ERR_SHOWN = hashErr;
+  let session = null, netFail = false;
+  try{
+    const r = await sb.auth.getSession();
+    session = (r.data && r.data.session) || null;
+    if (!session && r.error) netFail = true;
+  }catch(e){ netFail = true; }
+  if (session){
+    S.user = { id:session.user.id, email:session.user.email };
+    await loadAll();
+    return home();
+  }
+  if (netFail && cacheOK){ useCache(cache); S.offline = true; return home(); }
+  S.user = null;
+  screenLogin(hashErr && !session ? "Ce lien n'est plus valide (expiré ou déjà utilisé). Demandez-en un nouveau." : "");
+}
+let cooldownT = null;
+function screenLogin(note){
+  clearInterval(cooldownT);
+  root.innerHTML =
+    '<div style="padding:1rem 0"><h1 class="center">Verbes espagnol (Paraguay)</h1>'+
+    '<p class="center muted small" style="margin:0 0 20px">Connexion par lien envoyé par email. Accès réservé aux utilisateurs invités.</p>'+
+    (note ? '<p class="center small bad">'+esc(note)+'</p>' : '')+
+    '<div class="row"><input type="email" id="em" placeholder="votre@email.com" autocomplete="email" style="width:260px"><button class="primary" id="snd">Recevoir un lien</button></div>'+
+    '<p id="lm" class="msg center small"></p>'+
+    '<p class="muted small center" style="margin-top:16px">Si le lien ne vous connecte pas, copiez-le dans la barre d\'adresse de votre navigateur habituel.</p></div>';
+  const send = async () => {
+    const email = $("em").value.trim(), lm = $("lm"), btn = $("snd");
+    if (!email || email.indexOf("@") < 1){ lm.className = "msg center small bad"; lm.textContent = "Saisissez votre adresse email."; return; }
+    btn.disabled = true; lm.className = "msg center small muted"; lm.textContent = "Envoi…";
+    let res;
+    try{ res = await sb.auth.signInWithOtp({ email:email, options:{ shouldCreateUser:false, emailRedirectTo:location.origin + location.pathname } }); }
+    catch(e){ res = { error:e }; }
+    if (res.error && isNetErr(res.error)){ lm.className = "msg center small bad"; lm.textContent = "Connexion impossible : vérifiez votre réseau (ou le projet Supabase est peut-être en pause)."; btn.disabled = false; return; }
+    if (res.error && res.error.status === 429){ lm.className = "msg center small bad"; lm.textContent = "Patientez une minute avant de redemander un lien."; }
+    else { lm.className = "msg center small good"; lm.textContent = "Si cette adresse est autorisée, un lien de connexion vient d'être envoyé. Ouvrez-le sur cet appareil."; }
+    let left = 60; btn.textContent = "Renvoyer (" + left + " s)";
+    cooldownT = setInterval(() => { left--; if (left <= 0){ clearInterval(cooldownT); btn.disabled = false; btn.textContent = "Recevoir un lien"; } else btn.textContent = "Renvoyer (" + left + " s)"; }, 1000);
+  };
+  $("snd").onclick = send;
+  $("em").onkeydown = e => { if (e.key === "Enter") send(); };
+}
+async function doSignOut(){
+  try{ await sb.auth.signOut({ scope:"local" }); }catch(e){}
+  lsDel(K.cache); S.user = null; S.pending = []; S.W = {}; S.verbs = []; S.role = "user";
+  screenLogin("");
+}
+if (sb){ sb.auth.onAuthStateChange(ev => { if (ev === "SIGNED_OUT" && S.user){ S.user = null; setTimeout(() => screenLogin(""), 0); } }); }
+
+/* ===== Import d'une ancienne progression (V1 / V2) ===== */
+function legacyDecode(s){
+  s = String(s || "").replace(/\s+/g, "");
+  const w = ch => WMIN * Math.pow(WMAX / WMIN, ch / 63);
+  if (s.indexOf("V1-") === 0){
+    if (s.length !== 3 + LEGACY_N) return null;
+    const out = [];
+    for (const c of s.slice(3)){ const v = B64.indexOf(c); if (v < 0) return null; out.push(w(v)); }
+    return out;
+  }
+  if (s.indexOf("V2-") === 0){
+    const r = s.slice(3), d = r.lastIndexOf(".");
+    if (d < 0 || r.length - d !== 3) return null;
+    const b = r.slice(0, d), L = []; let i = 0;
+    while (i < b.length){
+      const v = B64.indexOf(b[i]); if (v < 0) return null; i++;
+      let n = 1;
+      if (b[i] === "("){
+        const e = b.indexOf(")", i); if (e < 0) return null;
+        const num = b.slice(i + 1, e); if (!/^\d+$/.test(num)) return null;
+        n = parseInt(num, 10); if (n < 1 || n > LEGACY_N) return null; i = e + 1;
+      }
+      for (let k = 0; k < n; k++) L.push(v);
+      if (L.length > LEGACY_N) return null;
+    }
+    if (L.length !== LEGACY_N) return null;
+    let sum = 0; L.forEach((v, j) => { sum += (v + 1) * (j + 1); }); sum %= 4096;
+    if (B64[sum >> 6] + B64[sum & 63] !== r.slice(d + 1)) return null;
+    return L.map(w);
+  }
+  return null;
+}
+function getLegacyLocal(){
+  try{
+    const raw = localStorage.getItem(K.legacy); if (!raw) return "";
+    try{ const o = JSON.parse(raw); return typeof o === "string" ? o : ((o && o.c) || ""); }catch(e){ return raw; }
+  }catch(e){ return ""; }
+}
+async function importLegacy(code){
+  const arr = legacyDecode(code);
+  if (!arr) return { ok:false, msg:"Code invalide ou incomplet : rien n'a été importé." };
+  const known = {}; S.verbs.forEach(v => { known[v.id] = true; });
+  const rows = [];
+  arr.forEach((w, i) => { const id = i + 1; if (known[id] && Math.abs(w - 1) > 0.02) rows.push({ user_id:S.user.id, verb_id:id, weight:clamp(w), updated_at:new Date().toISOString() }); });
+  if (!rows.length) return { ok:false, msg:"Ce code ne contient aucun poids à importer." };
+  const r = await sb.from("progress").upsert(rows, { onConflict:"user_id,verb_id" });
+  if (r.error) return { ok:false, msg:"Import impossible pour le moment (connexion ou projet en pause). Réessayez plus tard." };
+  rows.forEach(x => { S.W[x.verb_id] = x.weight; });
+  lsSet(K.legacyDone, true); saveCache();
+  return { ok:true, msg:rows.length + " verbes importés." };
+}
+
+/* ===== Accueil ===== */
+function home(){
+  clearInterval(timer);
+  const nv = S.verbs.length;
+  let h = '<div class="userbar"><span>'+esc(S.user.email || "")+(S.role === "admin" ? " · administrateur" : "")+'</span><button class="small" id="so">Se déconnecter</button></div>';
+  h += '<h1 class="center">Verbes à l\'infinitif, espagnol du Paraguay</h1>';
+  h += '<p class="center muted small" style="margin:0 0 16px">'+Math.min(N, nv)+' questions · '+(T/1000)+' s pour écrire, puis '+(T/1000)+' s pour choisir parmi 4 propositions.</p>';
+  if (S.offline){
+    h += '<div class="banner t-warn">Mode hors ligne : la synchronisation est indisponible (pas de connexion, ou projet Supabase en pause). Vos résultats restent sur cet appareil'+(S.pending.length ? ' ('+S.pending.length+' quiz en attente)' : '')+'.'+
+         (S.lastSync && Date.now() - S.lastSync > 5*86400000 ? ' Dernière synchronisation : '+ago(S.lastSync)+' — un projet gratuit est mis en pause après 7 jours sans activité.' : '')+
+         ' <button class="small" id="rt">Réessayer</button></div>';
+  } else if (S.pending.length){
+    h += '<div class="banner t-warn">'+S.pending.length+' quiz en attente de synchronisation. <button class="small" id="rt">Réessayer</button></div>';
+  }
+  const legacyDone = lsGet(K.legacyDone);
+  if (!S.offline && !legacyDone && Object.keys(S.W).length === 0 && nv > 0){
+    const loc = getLegacyLocal();
+    h += '<div class="banner t-acc"><b>Reprendre une ancienne progression ?</b><br>'+(loc ? 'Une progression enregistrée sur cet appareil a été trouvée. ' : '')+'Vous pouvez aussi coller un ancien code (V1… ou V2…).'+
+         '<div class="row" style="margin-top:8px;justify-content:flex-start"><input type="text" id="lg" value="'+esc(loc)+'" placeholder="V2-..." autocomplete="off" spellcheck="false" style="flex:1;min-width:160px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px"><button class="small" id="lgi">Importer</button><button class="small" id="lgn">Ignorer</button></div><div id="lgm" class="msg"></div></div>';
+  }
+  if (nv === 0){
+    h += '<p class="center bad small">'+(S.offline ? "Aucune donnée en mémoire : connectez-vous au réseau pour charger les verbes." : "Aucun verbe dans la base : exécutez d'abord le fichier SQL d'installation.")+'</p>';
+  } else if (nv < 4){
+    h += '<p class="center bad small">Il faut au moins 4 verbes actifs pour jouer.</p>';
+  } else {
+    h += '<div class="center" style="margin:6px 0 4px"><button class="primary" id="go">Démarrer</button></div>';
+  }
+  h += '<div class="menu"><button id="st">Statistiques</button>'+(S.role === "admin" ? '<button id="ad">Administration</button>' : '')+'</div>';
+  if (!S.offline && S.lastSync) h += '<p class="center muted small" style="margin-top:14px">Dernière synchronisation : '+ago(S.lastSync)+'</p>';
+  root.innerHTML = h;
+  $("so").onclick = doSignOut;
+  if ($("go")) $("go").onclick = start;
+  if ($("rt")) $("rt").onclick = () => { screenMsg("Synchronisation…", ""); boot(); };
+  $("st").onclick = screenStats;
+  if ($("ad")) $("ad").onclick = screenAdmin;
+  if ($("lgi")){
+    $("lgi").onclick = async () => {
+      const m = $("lgm"); m.className = "msg muted"; m.textContent = "Import…";
+      const r = await importLegacy($("lg").value);
+      if (r.ok) home(); else { m.className = "msg bad"; m.textContent = r.msg; }
+    };
+    $("lgn").onclick = () => { lsSet(K.legacyDone, true); home(); };
+  }
+}
+
+/* ===== Quiz ===== */
+let order, idx, R, timer, t0, cur, opts, QN = N;
+function drawWeighted(n){
+  const pool = S.verbs.map((v, i) => i), out = [];
+  while (out.length < n && pool.length){
+    let tot = 0; pool.forEach(i => { const w = S.W[S.verbs[i].id]; tot += (w == null ? 1 : w); });
+    let r = Math.random() * tot, k = 0;
+    for (; k < pool.length - 1; k++){ const w = S.W[S.verbs[pool[k]].id]; r -= (w == null ? 1 : w); if (r <= 0) break; }
+    out.push(pool[k]); pool.splice(k, 1);
   }
   return out;
 }
-
-/* ===== Déroulement du quiz ===== */
-function rec(group,res,given){R.push({g:group,r:res,i:order[idx],f:cur.f,ans:cur.a[0],given:given});idx++;next()}
-function start(){order=drawWeighted();idx=0;R=[];next()}
-
-function home(){
-  const changed=W.filter(w=>Math.abs(w-1)>0.02).length;
-  root.innerHTML=
-  '<div style="padding:10px 0"><h1 class="center">Verbes à l\'infinitif, espagnol du Paraguay</h1>'+
-  '<p class="center muted small" style="margin:0 0 18px">'+N+' questions · '+(T/1000)+' s pour écrire, puis '+(T/1000)+' s pour choisir parmi 4 propositions.</p>'+
-  '<p class="center small" style="margin:0 0 6px;min-height:18px">'+homeMsg+'</p>'+
-  (storageOK()?'':'<p class="center bad small" style="margin:0 0 8px">La mémoire du navigateur est indisponible ici : la progression ne sera pas conservée. Utilisez le code d\'export.</p>')+
-  '<p class="center muted small" style="margin:0 0 16px">'+(changed?changed+' verbe'+(changed>1?'s':'')+' avec un poids personnalisé (progression enregistrée sur cet appareil).':'Aucune progression : tous les verbes ont le même poids.')+'</p>'+
-  '<div class="center" style="margin-bottom:10px"><button class="primary" id="go">Démarrer</button></div>'+
-  '<details '+(convHtml?'open':'')+'><summary>Exporter / importer ma progression</summary>'+
-  '<p class="small" style="margin:8px 0 4px">Code actuel (à garder pour changer d\'appareil ou sauvegarder) :</p>'+
-  '<textarea id="cur" readonly rows="2">'+makeCode()+'</textarea>'+
-  '<p class="small" style="margin:12px 0 4px">Importer un code (V1 ou V2) :</p>'+
-  '<div class="row"><input type="text" id="cd" placeholder="V2-..." autocomplete="off" spellcheck="false" style="flex:1;min-width:0;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px"><button id="ld">Charger</button></div>'+
-  '<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button id="dl">Télécharger la version mise à jour</button><button id="em">M\'envoyer le code par email</button><button id="rz">Remettre tous les poids à zéro</button></div></details></div>';
-  document.getElementById("go").onclick=start;
-  document.getElementById("dl").onclick=downloadUpdated;
-  document.getElementById("em").onclick=sendByEmail;
-  document.getElementById("ld").onclick=()=>{
-    const v=document.getElementById("cd").value;
-    if(loadCode(v)){saveLocal();homeMsg='<span class="good">Code chargé et vérifié.</span>';convHtml="1"}
-    else{homeMsg='<span class="bad">Code invalide ou incomplet : rien n\'a été chargé.</span>'}
-    home();
-  };
-  document.getElementById("rz").onclick=()=>{
-    if(confirm("Remettre tous les poids à zéro ? La progression sera perdue.")){W=V.map(()=>1);saveLocal();homeMsg='<span class="good">Progression remise à zéro.</span>';home()}
-  };
+function start(){ if (S.verbs.length < 4) return; QN = Math.min(N, S.verbs.length); order = drawWeighted(QN); idx = 0; R = []; next(); }
+function rec(mode, res, given){
+  R.push({ verb_id:cur.id, position:idx + 1, mode:mode, result:res, given:given || null, fr:cur.fr, ans:cur.es[0] });
+  idx++; next();
 }
-
 function head(){
-  return '<div class="top"><span>Question '+(idx+1)+' / '+N+'</span><span id="tl">'+(T/1000)+' s</span></div>'+
-  '<div class="barwrap"><div class="bar" id="bar"></div></div>'+
-  '<p class="verb">'+esc(cur.f)+'</p>';
+  return '<div class="top"><span>Question '+(idx+1)+' / '+QN+'</span><span id="tl">'+(T/1000)+' s</span></div>'+
+         '<div class="bar-wrap"><div class="bar" id="bar"></div></div><p class="verb">'+esc(cur.fr)+'</p>';
 }
 function tick(cb){
-  clearInterval(timer);t0=Date.now();
-  timer=setInterval(()=>{
-    const r=Math.max(0,T-(Date.now()-t0));
-    document.getElementById("bar").style.width=(r/T*100)+"%";
-    document.getElementById("tl").textContent=Math.ceil(r/1000)+" s";
-    if(r<=0){clearInterval(timer);cb()}
-  },100);
+  clearInterval(timer); t0 = Date.now();
+  timer = setInterval(() => {
+    const r = Math.max(0, T - (Date.now() - t0));
+    const bar = $("bar"), tl = $("tl"); if (!bar || !tl){ clearInterval(timer); return; }
+    bar.style.width = (r / T * 100) + "%"; tl.textContent = Math.ceil(r / 1000) + " s";
+    if (r <= 0){ clearInterval(timer); cb(); }
+  }, 100);
 }
 function next(){
-  if(idx>=N){return end()}
-  cur=V[order[idx]];
-  root.innerHTML=head()+'<div class="row"><input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Verbe en espagnol" style="width:260px"><button class="primary" id="ok">Valider</button></div><p id="er" class="msg bad center"></p>';
-  const inp=document.getElementById("in");inp.focus();
-  inp.oninput=()=>{document.getElementById("er").textContent=""};
-  const sub=()=>{
-    if(!norm(inp.value)){document.getElementById("er").textContent="Écrivez un verbe, ou attendez la fin du temps.";return}
-    clearInterval(timer);rec("saisie",grade(inp.value,cur.a),inp.value.trim());
+  if (idx >= QN) return end();
+  cur = S.verbs[order[idx]];
+  root.innerHTML = head()+'<div class="row"><input type="text" id="in" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Verbe en espagnol" style="width:260px"><button class="primary" id="ok">Valider</button></div><p id="er" class="msg bad center"></p>';
+  const inp = $("in"); inp.focus();
+  inp.oninput = () => { $("er").textContent = ""; };
+  const sub = () => {
+    if (!norm(inp.value)){ $("er").textContent = "Écrivez un verbe, ou attendez la fin du temps."; return; }
+    clearInterval(timer); rec("saisie", grade(inp.value, cur.es), inp.value.trim());
   };
-  document.getElementById("ok").onclick=sub;
-  inp.onkeydown=e=>{if(e.key==="Enter")sub()};
-  tick(()=>{if(norm(inp.value)){rec("saisie",grade(inp.value,cur.a),inp.value.trim())}else{choices()}});
+  $("ok").onclick = sub;
+  inp.onkeydown = e => { if (e.key === "Enter") sub(); };
+  tick(() => { if (norm(inp.value)) rec("saisie", grade(inp.value, cur.es), inp.value.trim()); else choices(); });
 }
 function choices(){
-  const pool=shuffle(V.filter(v=>v!==cur&&cur.a.indexOf(v.a[0])<0).map(v=>v.a[0]));
-  const d=[];pool.forEach(x=>{if(d.length<3&&d.indexOf(x)<0)d.push(x)});
-  opts=shuffle([cur.a[0]].concat(d));
-  root.innerHTML=head()+'<p class="center muted small" style="margin:0 0 12px">Choisissez la bonne réponse</p><div class="choices">'+opts.map((o,i)=>'<button data-i="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
-  root.querySelectorAll("button[data-i]").forEach(b=>{b.onclick=()=>{clearInterval(timer);const o=opts[+b.dataset.i];rec("choix",o===cur.a[0]?"ok":"ko",o)}});
-  tick(()=>{rec("choix","ko","")});
+  const seen = {}, d = [];
+  shuffle(S.verbs.filter(v => v !== cur)).forEach(v => {
+    const t = v.es[0], key = norm(t);
+    if (d.length < 3 && !seen[key] && cur.es.map(norm).indexOf(key) < 0){ seen[key] = true; d.push(t); }
+  });
+  opts = shuffle([cur.es[0]].concat(d));
+  root.innerHTML = head()+'<p class="center muted small" style="margin:0 0 12px">Choisissez la bonne réponse</p><div class="choices">'+opts.map((o, i) => '<button data-i="'+i+'">'+esc(o)+'</button>').join("")+'</div>';
+  root.querySelectorAll("button[data-i]").forEach(b => { b.onclick = () => { clearInterval(timer); const o = opts[+b.dataset.i]; rec("choix", o === cur.es[0] ? "ok" : "ko", o); }; });
+  tick(() => rec("choix", "ko", ""));
 }
 
 /* ===== Bilan ===== */
-function p(n,t){return t?(Math.round(n/t*1000)/10)+" %":"–"}
-function stat(cls,l,n,t){return '<div class="stat '+cls+'"><div class="l">'+l+'</div><div class="v">'+p(n,t)+'</div><div class="n">'+n+' / '+t+'</div></div>'}
-function sec(cls,title,sub,inner,g){return '<div class="sec '+cls+'"><div class="sechead"><b>'+title+'</b><span class="muted small">'+sub+'</span></div><div class="grid '+g+'">'+inner+'</div></div>'}
-function end(){
+function stat(cls, l, n, t){ return '<div class="stat '+cls+'"><div class="l">'+l+'</div><div class="v">'+pct(frac(n, t))+'</div><div class="n">'+n+' / '+t+'</div></div>'; }
+function sec(cls, title, sub, inner, g){ return '<div class="sec '+cls+'"><div class="sechead"><b>'+title+'</b><span class="muted small">'+sub+'</span></div><div class="grid '+g+'">'+inner+'</div></div>'; }
+async function end(){
   clearInterval(timer);
-  R.forEach(x=>{W[x.i]=clamp(W[x.i]*COEF[x.g][x.r])});
-  saveLocal();
-  const S=R.filter(x=>x.g==="saisie"),C=R.filter(x=>x.g==="choix");
-  const c=(a,r)=>a.filter(x=>x.r===r).length;
-  const sOk=c(S,"ok"),sMin=c(S,"minime"),sPur=c(S,"pure"),cOk=c(C,"ok"),cKo=c(C,"ko");
-  let h='<h1>Bilan</h1>';
-  h+=sec("s-ok","Vue d'ensemble","rapportée aux "+N+" questions",stat("t-ok","Saisie correcte",sOk,N)+stat("t-warn","Saisie correcte + minime",sOk+sMin,N),"g2");
-  h+=sec("s-acc","Répartition des "+N+" questions","mode de réponse",stat("t-acc","Saisie",S.length,N)+stat("t-pro","Choix dans la liste",C.length,N),"g2");
-  h+=sec("s-acc","Saisie","sur "+S.length+" question"+(S.length>1?"s":""),stat("t-ok","Correct",sOk,S.length)+stat("t-warn","Erreur minime",sMin,S.length)+stat("t-ko","Erreur complète",sPur,S.length),"g3");
-  h+=sec("s-pro","Choix dans la liste","sur "+C.length+" question"+(C.length>1?"s":""),stat("t-ok","Correct",cOk,C.length)+stat("t-ko","Incorrect",cKo,C.length),"g2");
-  const lab={pure:["t-ko","Saisie, erreur complète"],minime:["t-warn","Saisie, erreur minime"],ko:["t-ko","Choix, incorrect"]};
-  const E=R.filter(x=>x.r!=="ok");
-  h+='<p style="font-size:15px;font-weight:600;margin:0 0 8px">Liste des erreurs ('+E.length+')</p>';
-  if(E.length){
-    h+='<div style="border-top:1px solid var(--border);margin-bottom:20px">'+E.map(e=>{const l=lab[e.r];return '<div class="err"><span><b>'+esc(e.f)+'</b> → '+esc(e.ans)+(e.given?' <span class="muted">(vous : '+esc(e.given)+')</span>':' <span class="muted">(aucune réponse)</span>')+'</span><span class="badge '+l[0]+'">'+l[1]+'</span></div>'}).join("")+'</div>';
-  } else {
-    h+='<p class="good" style="margin:0 0 20px">Aucune erreur.</p>';
+  const Sa = R.filter(x => x.mode === "saisie"), Ch = R.filter(x => x.mode === "choix");
+  const c = (a, r) => a.filter(x => x.result === r).length;
+  const sum = { n_total:QN, n_saisie:Sa.length, n_choix:Ch.length, s_ok:c(Sa,"ok"), s_minime:c(Sa,"minime"), s_pure:c(Sa,"pure"), c_ok:c(Ch,"ok"), c_ko:c(Ch,"ko") };
+  const changed = {};
+  R.forEach(x => { const cw = S.W[x.verb_id] == null ? 1 : S.W[x.verb_id]; const nw = clamp(cw * COEF[x.mode][x.result]); S.W[x.verb_id] = nw; changed[x.verb_id] = nw; });
+  const payload = {
+    id:uuid(), uid:S.user.id, played_at:new Date().toISOString(), sum:sum,
+    answers:R.map(x => ({ position:x.position, verb_id:x.verb_id, mode:x.mode, result:x.result, given:x.given })),
+    weights:Object.keys(changed).map(k => ({ verb_id:+k, weight:changed[k] }))
+  };
+  S.pending.push(payload); savePending(); saveCache();
+  renderBilan(sum);
+  syncAfterQuiz(sum);
+}
+function renderBilan(sum){
+  const lab = { pure:["t-ko","Saisie, erreur complète"], minime:["t-warn","Saisie, erreur minime"], ko:["t-ko","Choix, incorrect"] };
+  const E = R.filter(x => x.result !== "ok");
+  let h = '<h1>Bilan</h1>';
+  h += sec("s-ok","Vue d'ensemble","rapportée aux "+QN+" questions", stat("t-ok","Saisie correcte",sum.s_ok,QN)+stat("t-warn","Saisie correcte + minime",sum.s_ok+sum.s_minime,QN), "g2");
+  h += sec("s-acc","Répartition des "+QN+" questions","mode de réponse", stat("t-acc","Saisie",sum.n_saisie,QN)+stat("t-pro","Choix dans la liste",sum.n_choix,QN), "g2");
+  h += sec("s-acc","Saisie","sur "+sum.n_saisie+" question"+(sum.n_saisie > 1 ? "s" : ""), stat("t-ok","Correct",sum.s_ok,sum.n_saisie)+stat("t-warn","Erreur minime",sum.s_minime,sum.n_saisie)+stat("t-ko","Erreur complète",sum.s_pure,sum.n_saisie), "g3");
+  h += sec("s-pro","Choix dans la liste","sur "+sum.n_choix+" question"+(sum.n_choix > 1 ? "s" : ""), stat("t-ok","Correct",sum.c_ok,sum.n_choix)+stat("t-ko","Incorrect",sum.c_ko,sum.n_choix), "g2");
+  h += '<div class="sec s-info"><div class="sechead"><b>Comparaison</b><span class="muted small">ce quiz · vous · groupe</span></div><div id="cmp" class="small muted">Chargement…</div></div>';
+  h += '<h2>Liste des erreurs ('+E.length+')</h2>';
+  if (E.length){
+    h += '<div style="border-top:1px solid var(--border);margin-bottom:20px">'+E.map(e => { const l = lab[e.result]; return '<div class="err"><span><b>'+esc(e.fr)+'</b> → '+esc(e.ans)+(e.given ? ' <span class="muted">(vous : '+esc(e.given)+')</span>' : ' <span class="muted">(aucune réponse)</span>')+'</span><span class="badge '+l[0]+'">'+l[1]+'</span></div>'; }).join("")+'</div>';
+  } else h += '<p class="good" style="margin:0 0 20px">Aucune erreur.</p>';
+  h += '<div id="syncstate" class="small muted" style="margin-bottom:14px">Enregistrement…</div>';
+  h += '<div class="row"><button class="primary" id="re">Recommencer</button><button id="hm">Accueil</button></div>';
+  root.innerHTML = h;
+  $("re").onclick = start;
+  $("hm").onclick = () => home();
+}
+async function syncAfterQuiz(sum){
+  await flushPending();
+  const st = $("syncstate");
+  if (S.pending.length){
+    S.offline = true;
+    if (!st) return;
+    st.className = "banner t-warn";
+    st.innerHTML = "Résultats conservés sur cet appareil, synchronisation impossible pour le moment (réseau, ou projet Supabase en pause). Ils seront envoyés automatiquement à la prochaine ouverture.";
+    const cm = $("cmp"); if (cm) cm.textContent = "Comparaison indisponible hors ligne.";
+    return;
   }
-  const maitrises=W.filter(w=>w<=0.2).length,arevoir=W.filter(w=>w>=2).length;
-  h+='<div class="sec s-info"><div class="sechead"><b>Progression</b><span class="muted small">enregistrée dans ce navigateur</span></div>'+
-     '<p class="muted small" style="margin:0 0 10px">Verbes très bien maîtrisés : '+maitrises+' / '+V.length+' · à revoir en priorité : '+arevoir+' / '+V.length+'</p>'+
-     '<div style="display:flex;gap:8px;flex-wrap:wrap"><button id="dl">Télécharger la version mise à jour</button><button id="em">M\'envoyer le code par email</button></div>'+
-     '<p class="muted small" style="margin:8px 0 0">Crée un fichier avec la progression intégrée : enregistrez-le sous le même nom pour remplacer l\'ancien.</p></div>';
-  h+='<div class="row"><button class="primary" id="re">Recommencer</button><button id="hm">Accueil</button></div>';
-  root.innerHTML=h;
-  document.getElementById("re").onclick=start;
-  document.getElementById("dl").onclick=downloadUpdated;
-  document.getElementById("em").onclick=sendByEmail;
-  document.getElementById("hm").onclick=()=>{homeMsg="";convHtml="";home()};
+  S.offline = false; S.lastSync = Date.now(); saveCache();
+  if (!st) return;
+  st.className = "small good"; st.textContent = "Résultats enregistrés.";
+  loadComparison(sum);
+}
+function dl(a, b){ if (a == null || b == null) return ""; const d = Math.round((a - b) * 100); return ' <span class="'+(d >= 0 ? "good" : "bad")+'">('+(d >= 0 ? "+" : "")+d+')</span>'; }
+async function loadComparison(sum){
+  let me, gr;
+  try{ [me, gr] = await Promise.all([ sb.rpc("my_stats"), sb.rpc("community_stats") ]); }catch(e){ me = gr = { error:e }; }
+  const el = $("cmp"); if (!el) return;
+  if (me.error){ el.textContent = "Comparaison indisponible pour le moment."; return; }
+  const m = me.data || {}, g = (!gr.error && gr.data && gr.data.available) ? gr.data : null;
+  const rows = [
+    ["Saisie correcte", frac(sum.s_ok, sum.n_saisie), m.saisie_ok, g && g.saisie_ok],
+    ["Saisie correcte + minime", frac(sum.s_ok + sum.s_minime, sum.n_saisie), m.saisie_ok_min, g && g.saisie_ok_min],
+    ["Choix correct", frac(sum.c_ok, sum.n_choix), m.choix_ok, g && g.choix_ok]
+  ];
+  let h = '<table class="cmp"><tr><th></th><th>Ce quiz</th><th>Vous</th><th>Groupe</th></tr>';
+  rows.forEach(r => { h += '<tr><td>'+r[0]+'</td><td>'+pct(r[1])+'</td><td>'+pct(r[2])+'</td><td>'+(g ? pct(r[3])+dl(r[2], r[3]) : "–")+'</td></tr>'; });
+  h += '</table><p class="muted small" style="margin:8px 0 0">Pourcentages calculés sur les questions de chaque mode. Entre parenthèses : écart de votre moyenne avec celle du groupe, en points.';
+  if (!g){
+    const n = (!gr.error && gr.data && gr.data.n_users) || 0, mu = (!gr.error && gr.data && gr.data.min_users) || 2;
+    h += ' La comparaison avec le groupe apparaîtra dès que '+mu+' utilisateurs auront joué (actuellement '+n+').';
+  }
+  el.innerHTML = h + '</p>';
 }
 
-/* ===== Démarrage ===== */
-/* Demande au navigateur de ne pas effacer automatiquement la mémoire du site */
-try{if(navigator.storage&&navigator.storage.persist){navigator.storage.persist()}}catch(e){}
-if(loadInit()){homeMsg='<span class="good">Progression retrouvée.</span>'}
-home();
+/* ===== Statistiques ===== */
+function lineChart(sess){
+  const Wd = 640, Ht = 240, pl = 36, pr = 12, pt = 12, pb = 28, n = sess.length;
+  const x = i => pl + (n <= 1 ? (Wd - pl - pr) / 2 : i * (Wd - pl - pr) / (n - 1));
+  const y = v => pt + (1 - v) * (Ht - pt - pb);
+  let g = "";
+  [0, .25, .5, .75, 1].forEach(t => {
+    g += '<line x1="'+pl+'" x2="'+(Wd-pr)+'" y1="'+y(t)+'" y2="'+y(t)+'" style="stroke:var(--border)" stroke-width="1"/><text x="'+(pl-6)+'" y="'+(y(t)+4)+'" text-anchor="end" font-size="11" style="fill:var(--muted)">'+Math.round(t*100)+'</text>';
+  });
+  const series = [
+    { c:"var(--ok-tx)",   f:s => s.n_total ? s.s_ok / s.n_total : null },
+    { c:"var(--warn-tx)", f:s => s.n_total ? (s.s_ok + s.s_minime) / s.n_total : null },
+    { c:"var(--pro-tx)",  f:s => s.n_choix ? s.c_ok / s.n_choix : null }
+  ];
+  series.forEach(se => {
+    const pts = sess.map((s, i) => { const v = se.f(s); return v == null ? null : [x(i), y(v)]; }).filter(Boolean);
+    if (!pts.length) return;
+    g += '<polyline fill="none" style="stroke:'+se.c+'" stroke-width="2" points="'+pts.map(p => p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")+'"/>';
+    pts.forEach(p => { g += '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" style="fill:'+se.c+'"/>'; });
+  });
+  const d0 = new Date(sess[0].played_at).toLocaleDateString("fr-FR"), d1 = new Date(sess[n-1].played_at).toLocaleDateString("fr-FR");
+  g += '<text x="'+pl+'" y="'+(Ht-8)+'" font-size="11" style="fill:var(--muted)">'+d0+'</text><text x="'+(Wd-pr)+'" y="'+(Ht-8)+'" text-anchor="end" font-size="11" style="fill:var(--muted)">'+d1+'</text>';
+  return '<svg viewBox="0 0 '+Wd+' '+Ht+'" style="width:100%;height:auto" role="img" aria-label="Évolution de vos résultats en pourcentage">'+g+'</svg>'+
+    '<div class="legend"><span><i style="background:var(--ok-tx)"></i>Saisie correcte (sur le total)</span><span><i style="background:var(--warn-tx)"></i>Saisie correcte + minime (sur le total)</span><span><i style="background:var(--pro-tx)"></i>Choix correct (sur les choix)</span></div>';
+}
+function verbEs(id){ const v = S.verbs.find(x => x.id === id); return v ? v.es[0] : ""; }
+async function screenStats(){
+  if (S.offline){ root.innerHTML = '<p><button class="small" id="bk">← Accueil</button></p><p class="center muted small">Les statistiques ne sont pas disponibles hors ligne.</p>'; $("bk").onclick = home; return; }
+  root.innerHTML = '<p class="muted small center">Chargement des statistiques…</p>';
+  let a, b, c, d, e;
+  try{
+    [a, b, c, d, e] = await Promise.all([
+      sb.from("sessions").select("played_at,n_total,n_saisie,n_choix,s_ok,s_minime,c_ok").order("played_at", { ascending:false }).limit(40),
+      sb.rpc("my_stats"), sb.rpc("my_verb_stats"), sb.rpc("community_stats"), sb.rpc("community_verb_stats")
+    ]);
+  }catch(err){ a = { error:err }; }
+  if (!a || a.error || b.error){ root.innerHTML = '<p><button class="small" id="bk">← Accueil</button></p><p class="center bad small">Statistiques indisponibles pour le moment (réseau ou projet en pause).</p>'; $("bk").onclick = home; return; }
+  const sess = (a.data || []).slice().reverse(), m = b.data || {};
+  let h = '<p><button class="small" id="bk">← Accueil</button></p><h1>Statistiques</h1>';
+  h += '<div class="grid g3" style="margin-bottom:6px">'+
+       '<div class="stat t-acc"><div class="l">Quiz joués</div><div class="v">'+(m.n_sessions || 0)+'</div></div>'+
+       '<div class="stat t-ok"><div class="l">Saisie correcte (moyenne)</div><div class="v">'+pct(m.saisie_ok)+'</div></div>'+
+       '<div class="stat t-pro"><div class="l">Choix correct (moyenne)</div><div class="v">'+pct(m.choix_ok)+'</div></div></div>';
+  h += '<h2>Évolution ('+sess.length+' derniers quiz)</h2>';
+  h += sess.length ? lineChart(sess) : '<p class="muted small">Pas encore de quiz enregistré.</p>';
+  const mine = (c.data || []).filter(r => r.fails > 0).sort((p, q) => q.fails - p.fails || (q.fails / q.attempts) - (p.fails / p.attempts)).slice(0, 10);
+  h += '<h2>Vos verbes les plus ratés</h2>';
+  h += mine.length ? '<div style="border-top:1px solid var(--border)">'+mine.map(r => '<div class="vrow"><span class="t"><b>'+esc(r.fr)+'</b> → '+esc(verbEs(r.verb_id))+'</span><span class="muted">'+r.fails+' échec'+(r.fails > 1 ? "s" : "")+' / '+r.attempts+'</span></div>').join("")+'</div>' : '<p class="muted small">Aucun échec enregistré pour le moment.</p>';
+  h += '<h2>Groupe</h2>';
+  const g = (!d.error && d.data && d.data.available) ? d.data : null;
+  if (g){
+    h += '<table class="cmp"><tr><th></th><th>Vous</th><th>Groupe</th></tr>'+
+         '<tr><td>Saisie correcte</td><td>'+pct(m.saisie_ok)+'</td><td>'+pct(g.saisie_ok)+dl(m.saisie_ok, g.saisie_ok)+'</td></tr>'+
+         '<tr><td>Saisie correcte + minime</td><td>'+pct(m.saisie_ok_min)+'</td><td>'+pct(g.saisie_ok_min)+dl(m.saisie_ok_min, g.saisie_ok_min)+'</td></tr>'+
+         '<tr><td>Choix correct</td><td>'+pct(m.choix_ok)+'</td><td>'+pct(g.choix_ok)+dl(m.choix_ok, g.choix_ok)+'</td></tr></table>'+
+         '<p class="muted small">Moyennes anonymes de '+g.n_users+' utilisateurs ('+g.n_sessions+' quiz).</p>';
+    const hard = (!e.error && e.data) || [];
+    h += '<h2>Verbes les plus ratés par le groupe</h2>';
+    h += hard.length ? '<div style="border-top:1px solid var(--border)">'+hard.map(r => '<div class="vrow"><span class="t"><b>'+esc(r.fr)+'</b> → '+esc(verbEs(r.verb_id))+'</span><span class="muted">'+Math.round(r.fail_rate * 100)+' % d\'échec ('+r.attempts+' réponses)</span></div>').join("")+'</div>' : '<p class="muted small">Pas encore assez de réponses pour établir ce classement.</p>';
+  } else {
+    const n = (!d.error && d.data && d.data.n_users) || 0, mu = (!d.error && d.data && d.data.min_users) || 2;
+    h += '<p class="muted small">La comparaison avec le groupe apparaîtra dès que '+mu+' utilisateurs auront joué (actuellement '+n+').</p>';
+  }
+  root.innerHTML = h;
+  $("bk").onclick = home;
+}
+
+/* ===== Administration ===== */
+let AV = [];
+function parseEs(str){ return String(str || "").split("/").map(s => s.trim()).filter(Boolean); }
+function admMsg(txt, ok){ const m = $("am"); if (m){ m.className = "msg " + (ok ? "good" : "bad"); m.textContent = txt; } }
+async function screenAdmin(){
+  if (S.role !== "admin") return home();
+  root.innerHTML = '<p class="muted small center">Chargement…</p>';
+  const [vr, ur] = await Promise.all([
+    sb.from("verbs").select("id,fr,es,active").order("id").range(0, 999),
+    sb.from("profiles").select("email,role,created_at").order("created_at")
+  ]);
+  if (vr.error){ root.innerHTML = '<p><button class="small" id="bk">← Accueil</button></p><p class="center bad small">Administration indisponible pour le moment.</p>'; $("bk").onclick = home; return; }
+  AV = vr.data || [];
+  let h = '<p><button class="small" id="bk">← Accueil</button></p><h1>Administration</h1><div id="am" class="msg"></div>';
+  h += '<h2>Ajouter un verbe</h2><div class="row" style="justify-content:flex-start"><input type="text" id="nf" placeholder="Français (ex. conduire)" style="flex:1;min-width:150px"><input type="text" id="ne" placeholder="Espagnol (variantes séparées par /)" style="flex:1;min-width:150px"><button class="primary small" id="na">Ajouter</button></div>';
+  h += '<h2>Importer en lot</h2><textarea id="imp" rows="4" placeholder="Une ligne par verbe : français|espagnol1/espagnol2"></textarea><p style="margin:6px 0 0"><button class="small" id="imb">Importer</button> <span class="muted small">Les verbes déjà présents (même texte français) sont ignorés.</span></p>';
+  h += '<h2>Verbes ('+AV.length+')</h2><input type="text" id="fl" placeholder="Rechercher…" style="width:100%;margin-bottom:6px"><div id="vl"></div>';
+  h += '<h2>Utilisateurs</h2>';
+  if (ur.error) h += '<p class="muted small">Liste indisponible.</p>';
+  else {
+    h += '<div style="border-top:1px solid var(--border)">'+(ur.data || []).map(u => '<div class="vrow"><span class="t">'+esc(u.email)+'</span><span class="muted small">'+esc(u.role === "admin" ? "administrateur" : "utilisateur")+'</span></div>').join("")+'</div>';
+    h += '<p class="muted small">Pour inviter quelqu\'un : tableau de bord Supabase, Authentication, Users, puis invitation par email.</p>';
+  }
+  root.innerHTML = h;
+  $("bk").onclick = home;
+  $("na").onclick = adminAdd;
+  $("imb").onclick = adminImport;
+  $("fl").oninput = renderVerbList;
+  renderVerbList();
+}
+function renderVerbList(){
+  const q = norm($("fl").value || "");
+  const list = AV.filter(v => !q || norm(v.fr).indexOf(q) > -1 || v.es.some(x => norm(x).indexOf(q) > -1));
+  $("vl").innerHTML = '<div style="border-top:1px solid var(--border)">'+list.map(v =>
+    '<div class="vrow'+(v.active ? '' : ' off')+'" data-id="'+v.id+'"><span class="id">'+v.id+'</span><span class="t"><b>'+esc(v.fr)+'</b> → '+esc(v.es.join(" / "))+(v.active ? '' : ' <span class="muted small">(désactivé)</span>')+'</span>'+
+    '<span><button class="small" data-a="e">Modifier</button> <button class="small" data-a="t">'+(v.active ? "Désactiver" : "Activer")+'</button></span></div>').join("")+'</div>';
+  $("vl").querySelectorAll("button[data-a]").forEach(b => {
+    b.onclick = () => { const id = +b.closest(".vrow").dataset.id; if (b.dataset.a === "e") editRow(id); else toggleVerb(id); };
+  });
+}
+function editRow(id){
+  const v = AV.find(x => x.id === id), row = $("vl").querySelector('.vrow[data-id="'+id+'"]');
+  row.innerHTML = '<span class="id">'+id+'</span><span class="t" style="display:flex;gap:6px;flex-wrap:wrap"><input type="text" id="ef" value="'+esc(v.fr)+'" style="flex:1;min-width:120px"><input type="text" id="ee" value="'+esc(v.es.join(" / "))+'" style="flex:2;min-width:160px"></span><span><button class="small primary" id="es">Enregistrer</button> <button class="small" id="ec">Annuler</button></span>';
+  $("ec").onclick = renderVerbList;
+  $("es").onclick = async () => {
+    const fr = $("ef").value.trim(), es = parseEs($("ee").value);
+    if (!fr || !es.length){ admMsg("Renseignez le français et au moins une traduction.", false); return; }
+    const r = await sb.from("verbs").update({ fr:fr, es:es }).eq("id", id);
+    if (r.error){ admMsg("Modification impossible.", false); return; }
+    v.fr = fr; v.es = es; await reloadVerbs(); renderVerbList(); admMsg("Verbe modifié.", true);
+  };
+}
+async function toggleVerb(id){
+  const v = AV.find(x => x.id === id);
+  const r = await sb.from("verbs").update({ active:!v.active }).eq("id", id);
+  if (r.error){ admMsg("Modification impossible.", false); return; }
+  v.active = !v.active; await reloadVerbs(); renderVerbList(); admMsg(v.active ? "Verbe activé." : "Verbe désactivé.", true);
+}
+async function adminAdd(){
+  const fr = $("nf").value.trim(), es = parseEs($("ne").value);
+  if (!fr || !es.length){ admMsg("Renseignez le français et au moins une traduction.", false); return; }
+  if (AV.some(v => norm(v.fr) === norm(fr))){ admMsg("Ce verbe existe déjà.", false); return; }
+  const id = AV.reduce((m, v) => Math.max(m, v.id), 0) + 1;
+  const r = await sb.from("verbs").insert([{ id:id, fr:fr, es:es }]);
+  if (r.error){ admMsg("Ajout impossible.", false); return; }
+  AV.push({ id:id, fr:fr, es:es, active:true }); await reloadVerbs();
+  $("nf").value = ""; $("ne").value = ""; renderVerbList(); admMsg("Verbe ajouté.", true);
+}
+async function adminImport(){
+  const lines = $("imp").value.split(/[\n;]+/).map(s => s.trim()).filter(Boolean);
+  const known = {}; AV.forEach(v => { known[norm(v.fr)] = true; });
+  let id = AV.reduce((m, v) => Math.max(m, v.id), 0), skipped = 0, bad = 0; const rows = [];
+  lines.forEach(l => {
+    const p = l.split("|"); const fr = (p[0] || "").trim(), es = parseEs(p[1]);
+    if (!fr || !es.length){ bad++; return; }
+    if (known[norm(fr)]){ skipped++; return; }
+    known[norm(fr)] = true; id++; rows.push({ id:id, fr:fr, es:es });
+  });
+  if (!rows.length){ admMsg("Rien à importer ("+skipped+" déjà présents, "+bad+" lignes invalides).", false); return; }
+  const r = await sb.from("verbs").insert(rows);
+  if (r.error){ admMsg("Import impossible.", false); return; }
+  rows.forEach(x => AV.push({ id:x.id, fr:x.fr, es:x.es, active:true }));
+  await reloadVerbs(); $("imp").value = ""; renderVerbList();
+  admMsg(rows.length+" verbes importés, "+skipped+" ignorés, "+bad+" lignes invalides.", true);
+}
+
+/* ===== Lancement ===== */
+try{ if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); }catch(e){}
+boot();
 </script>
 </body>
 </html>
