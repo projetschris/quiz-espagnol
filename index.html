@@ -19,17 +19,27 @@ p.sub{color:var(--muted);font-size:14px;margin:0 0 24px}
 .quiz b{display:block;font-size:17px;font-weight:600}
 .quiz span{font-size:13px;color:var(--muted)}
 .foot{margin:24px 0 0;text-align:center;font-size:12px;color:var(--muted)}
+.foot a{color:var(--muted)}
 </style>
 </head>
 <body>
 <main>
 <h1>Mes quiz</h1>
 <p class="sub">Choisissez un quiz.</p>
-<a class="quiz" href="espagnol-verbes/">
+<a class="quiz" href="espagnol-verbes/?quiz=fr_es">
 <svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="7" fill="#D52B1E"/><rect y="7" width="30" height="6" fill="#FFFFFF"/><rect y="13" width="30" height="7" fill="#0038A8"/><circle cx="15" cy="10" r="3.2" fill="none" stroke="#2E7D32" stroke-width="1"/><circle cx="15" cy="10" r="1" fill="#F2C200"/></svg>
-<div><b>Verbes espagnol (Paraguay)</b><span>30 questions · infinitifs · progression enregistrée</span></div>
+<div><b>Verbes espagnol (Paraguay) : Français → Espagnol</b><span>20 questions · modes et niveaux au choix · progression enregistrée</span></div>
 </a>
-<p class="foot">© 2026 projetschris — Tous droits réservés</p>
+<a class="quiz" href="espagnol-verbes/?quiz=es_fr">
+<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="7" fill="#D52B1E"/><rect y="7" width="30" height="6" fill="#FFFFFF"/><rect y="13" width="30" height="7" fill="#0038A8"/><circle cx="15" cy="10" r="3.2" fill="none" stroke="#2E7D32" stroke-width="1"/><circle cx="15" cy="10" r="1" fill="#F2C200"/></svg>
+<div><b>Verbes espagnol (Paraguay) : Espagnol → Français</b><span>20 questions · modes et niveaux au choix · progression enregistrée</span></div>
+</a>
+<p class="foot">© 2026 projetschris — Tous droits réservés<span id="coffee"></span></p>
 </main>
+<script>
+/* Facultatif : nom de votre page « Buy me a coffee » (laisser vide pour masquer le lien). */
+const COFFEE_ID = "";
+if (COFFEE_ID && /^[A-Za-z0-9_.-]+$/.test(COFFEE_ID)) document.getElementById("coffee").innerHTML = ' · <a href="https://buymeacoffee.com/' + COFFEE_ID + '" target="_blank" rel="noopener noreferrer">☕ Offrir un café</a>';
+</script>
 </body>
 </html>
