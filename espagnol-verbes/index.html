@@ -138,6 +138,7 @@ function isNetErr(e){ return !!e && (e.name === "AuthRetryableFetchError" || e.s
 const HASH_ERR = (() => { try{ const h = new URLSearchParams(location.hash.replace(/^#/, "")); return !!(h.get("error_description") || h.get("error")); }catch(e){ return false; } })();
 const S = { user:null, role:"user", verbs:[], W:{}, offline:false, pending:[], lastSync:0 };
 let sb = null, HASH_ERR_SHOWN = false;
+const GO_REQ = location.hash === "#demandes";
 if (window.supabase && SUPABASE_URL && SUPABASE_KEY){
   try{ sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY, { auth:{ persistSession:true, autoRefreshToken:true, detectSessionInUrl:true } }); }catch(e){ sb = null; }
 }
@@ -244,6 +245,7 @@ async function boot(){
   if (session){
     S.user = { id:session.user.id, email:session.user.email };
     await loadAll();
+    if (GO_REQ && S.role === "admin" && !S.offline){ try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){} return screenAdmin(); }
     return home();
   }
   if (netFail && cacheOK){ useCache(cache); S.offline = true; return home(); }
@@ -251,30 +253,84 @@ async function boot(){
   screenLogin(hashErr && !session ? "Ce lien n'est plus valide (expiré ou déjà utilisé). Demandez-en un nouveau." : "");
 }
 let cooldownT = null;
-function screenLogin(note){
+const SOURCES = [["facebook","Facebook"],["reseau","Autre réseau social (Instagram, Reddit, TikTok, YouTube…)"],["recherche","Recherche sur internet"],["ami","Ami, famille (bouche à oreille)"],["cours","Cours ou professeur"],["groupe","Groupe ou forum"],["autre","Autre"]];
+const CHALLENGES = [{id:1,q:"Comment dit-on « manger » en espagnol ?"},{id:2,q:"Comment dit-on « boire » en espagnol ?"},{id:3,q:"Comment dit-on « parler » en espagnol ?"},{id:4,q:"Combien font 3 + 4 ?"},{id:5,q:"Comment dit-on « vivre » en espagnol ?"},{id:6,q:"Combien font 5 + 4 ?"}];
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/;
+function srcLabel(code){ const f = SOURCES.find(x => x[0] === code); return f ? f[1] : code; }
+function screenLogin(note, prefill){
   clearInterval(cooldownT);
   root.innerHTML =
     '<div style="padding:1rem 0"><h1 class="center">Verbes espagnol (Paraguay)</h1>'+
-    '<p class="center muted small" style="margin:0 0 20px">Connexion par lien envoyé par email. Accès réservé aux utilisateurs invités.</p>'+
+    '<p class="center muted small" style="margin:0 0 20px">Connexion par lien envoyé par email. Pas encore de compte ? Saisissez votre adresse : vous pourrez demander un accès.</p>'+
     (note ? '<p class="center small bad">'+esc(note)+'</p>' : '')+
-    '<div class="row"><input type="email" id="em" placeholder="votre@email.com" autocomplete="email" style="width:260px"><button class="primary" id="snd">Recevoir un lien</button></div>'+
+    '<div class="row"><input type="email" id="em" placeholder="votre@email.com" autocomplete="email" style="width:260px" value="'+esc(prefill || "")+'"><button class="primary" id="snd">Recevoir un lien</button></div>'+
     '<p id="lm" class="msg center small"></p>'+
     '<p class="muted small center" style="margin-top:16px">Si le lien ne vous connecte pas, copiez-le dans la barre d\'adresse de votre navigateur habituel.</p></div>';
   const send = async () => {
     const email = $("em").value.trim(), lm = $("lm"), btn = $("snd");
-    if (!email || email.indexOf("@") < 1){ lm.className = "msg center small bad"; lm.textContent = "Saisissez votre adresse email."; return; }
-    btn.disabled = true; lm.className = "msg center small muted"; lm.textContent = "Envoi…";
+    if (!EMAIL_RE.test(email)){ lm.className = "msg center small bad"; lm.textContent = "Saisissez une adresse email valide."; return; }
+    btn.disabled = true; lm.className = "msg center small muted"; lm.textContent = "Vérification…";
+    let st = null, stErr = null;
+    try{ const q = await wt(sb.rpc("email_status", { p_email:email }), 8000); if (q.error) stErr = q.error; else st = q.data; }
+    catch(e){ stErr = e; }
+    if (stErr && (isNetErr(stErr) || (stErr.name === "Timeout"))){ lm.className = "msg center small bad"; lm.textContent = "Connexion impossible : vérifiez votre réseau (ou le projet Supabase est peut-être en pause)."; btn.disabled = false; return; }
+    if (st === "unknown"){ return screenRequest(email); }
+    if (st === "pending"){ lm.className = "msg center small good"; lm.textContent = "Une demande d'accès est déjà en cours pour cette adresse. Vous recevrez un lien d'activation dès son approbation."; btn.disabled = false; return; }
+    if (st === "rejected"){ lm.className = "msg center small bad"; lm.textContent = "La demande d'accès pour cette adresse n'a pas été retenue."; btn.disabled = false; return; }
+    lm.textContent = "Envoi…";
     let res;
     try{ res = await sb.auth.signInWithOtp({ email:email, options:{ shouldCreateUser:false, emailRedirectTo:location.origin + location.pathname } }); }
     catch(e){ res = { error:e }; }
     if (res.error && isNetErr(res.error)){ lm.className = "msg center small bad"; lm.textContent = "Connexion impossible : vérifiez votre réseau (ou le projet Supabase est peut-être en pause)."; btn.disabled = false; return; }
     if (res.error && res.error.status === 429){ lm.className = "msg center small bad"; lm.textContent = "Patientez une minute avant de redemander un lien."; }
-    else { lm.className = "msg center small good"; lm.textContent = "Si cette adresse est autorisée, un lien de connexion vient d'être envoyé. Ouvrez-le sur cet appareil."; }
+    else { lm.className = "msg center small good"; lm.textContent = "Un lien de connexion vient d'être envoyé à cette adresse. Ouvrez-le sur cet appareil."; }
     let left = 60; btn.textContent = "Renvoyer (" + left + " s)";
     cooldownT = setInterval(() => { left--; if (left <= 0){ clearInterval(cooldownT); btn.disabled = false; btn.textContent = "Recevoir un lien"; } else btn.textContent = "Renvoyer (" + left + " s)"; }, 1000);
   };
   $("snd").onclick = send;
   $("em").onkeydown = e => { if (e.key === "Enter") send(); };
+}
+function screenRequest(email, chId, note){
+  const ch = CHALLENGES.find(c => c.id === chId) || CHALLENGES[Math.floor(Math.random() * CHALLENGES.length)];
+  root.innerHTML =
+    '<div style="padding:1rem 0"><h1 class="center">Demande d\'accès</h1>'+
+    '<p class="center small" style="margin:0 0 6px">Cette adresse n\'est pas encore inscrite : <b>'+esc(email)+'</b></p>'+
+    '<p class="center muted small" style="margin:0 0 16px">Répondez à ces questions : la demande sera examinée et un lien d\'activation vous sera envoyé.</p>'+
+    (note ? '<p class="center small bad">'+esc(note)+'</p>' : '')+
+    '<div style="max-width:340px;margin:0 auto;text-align:left">'+
+    '<label class="small" for="rs">Comment avez-vous connu ce script ?</label><br>'+
+    '<select id="rs" style="width:100%;margin:4px 0 8px;font:inherit;background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 10px"><option value="">Choisir…</option>'+SOURCES.map(x => '<option value="'+x[0]+'">'+esc(x[1])+'</option>').join("")+'</select>'+
+    '<input type="text" id="rd" maxlength="200" placeholder="Précisez (facultatif)" style="width:100%;margin:0 0 10px;display:none">'+
+    '<div class="small" style="margin:0 0 4px">Êtes-vous basé au Paraguay ?</div>'+
+    '<label class="small" style="margin-right:16px"><input type="radio" name="rp" value="1"> Oui</label><label class="small"><input type="radio" name="rp" value="0"> Non</label>'+
+    '<div class="small" style="margin:12px 0 4px">Question de contrôle : '+esc(ch.q)+'</div>'+
+    '<input type="text" id="rc" autocomplete="off" style="width:100%" aria-label="Réponse à la question de contrôle">'+
+    '<input type="text" id="rt" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">'+
+    '<p class="muted small" style="margin:12px 0">Votre adresse et vos réponses sont conservées uniquement pour traiter votre demande (30 jours au plus si elle n\'aboutit pas).</p>'+
+    '<div class="row" style="justify-content:flex-start"><button class="primary" id="rsend">Envoyer la demande</button><button class="small" id="rback">Retour</button></div>'+
+    '<p id="rm" class="msg small"></p></div></div>';
+  $("rs").onchange = () => { $("rd").style.display = $("rs").value === "autre" ? "block" : "none"; };
+  $("rback").onclick = () => screenLogin("", email);
+  $("rsend").onclick = async () => {
+    const rm = $("rm"), src = $("rs").value, pr = document.querySelector('input[name="rp"]:checked');
+    if (!src || !pr || !$("rc").value.trim()){ rm.className = "msg small bad"; rm.textContent = "Répondez à toutes les questions."; return; }
+    $("rsend").disabled = true; rm.className = "msg small muted"; rm.textContent = "Envoi…";
+    let r;
+    try{ r = await wt(sb.rpc("request_access", { p_email:email, p_source:src, p_detail:$("rd").value, p_paraguay:pr.value === "1", p_challenge:ch.id, p_answer:$("rc").value, p_trap:$("rt").value }), 10000); }
+    catch(e){ r = { error:e }; }
+    if (r.error){ rm.className = "msg small bad"; rm.textContent = "Envoi impossible : vérifiez votre réseau, puis réessayez."; $("rsend").disabled = false; return; }
+    const c = r.data;
+    if (c === "ok"){
+      root.innerHTML = '<div class="center" style="padding:2rem 0"><h1>Demande enregistrée</h1><div class="small" style="max-width:360px;margin:0 auto">'+
+        'Votre demande d\'inscription a bien été prise en compte. Vous recevrez un lien d\'activation dans les prochaines heures (pensez à vérifier vos courriers indésirables).<br><br>'+
+        '<span class="muted">Le lien est valable 24 h. S\'il a expiré, saisissez à nouveau votre adresse sur la page de connexion : un nouveau lien vous sera envoyé.</span></div>'+
+        '<p><button class="small" id="rok">Retour à la connexion</button></p></div>';
+      $("rok").onclick = () => screenLogin("", email); return;
+    }
+    if (c === "bad_challenge") return screenRequest(email, null, "Réponse incorrecte à la question de contrôle. Une nouvelle question vous est posée.");
+    const msgs = { member:"Cette adresse est déjà inscrite : retournez à la connexion pour recevoir un lien.", exists:"Une demande est déjà en cours pour cette adresse.", rejected:"La demande d'accès pour cette adresse n'a pas été retenue.", full:"Les demandes sont temporairement fermées. Réessayez dans quelques jours.", invalid_email:"Adresse email invalide.", invalid:"Vérifiez vos réponses." };
+    rm.className = "msg small bad"; rm.textContent = msgs[c] || "Demande impossible pour le moment."; $("rsend").disabled = false;
+  };
 }
 async function doSignOut(){
   try{ await sb.auth.signOut({ scope:"local" }); }catch(e){}
@@ -336,6 +392,14 @@ async function importLegacy(code){
 }
 
 /* ===== Accueil ===== */
+async function refreshReqBadge(){
+  try{
+    const r = await wt(sb.from("access_requests").select("id").eq("status", "pending"), 6000);
+    const box = $("rqb"); if (!box || r.error) return;
+    const n = (r.data || []).length;
+    if (n > 0){ box.innerHTML = '<div class="banner t-acc"><b>'+n+' demande'+(n > 1 ? "s" : "")+' d\'accès en attente</b> <button class="small" id="rqo">Voir</button></div>'; $("rqo").onclick = () => screenAdmin(); }
+  }catch(e){}
+}
 function home(){
   clearInterval(timer);
   const nv = S.verbs.length;
@@ -362,6 +426,7 @@ function home(){
   } else {
     h += '<div class="center" style="margin:6px 0 4px"><button class="primary" id="go">Démarrer</button></div>';
   }
+  if (S.role === "admin" && !S.offline) h += '<div id="rqb"></div>';
   h += '<div class="menu"><button id="st">Statistiques</button>'+(S.role === "admin" ? '<button id="ad">Administration</button>' : '')+'</div>';
   if (!S.offline && S.lastSync) h += '<p class="center muted small" style="margin-top:14px">Dernière synchronisation : '+ago(S.lastSync)+'</p>';
   root.innerHTML = h;
@@ -369,7 +434,8 @@ function home(){
   if ($("go")) $("go").onclick = start;
   if ($("rt")) $("rt").onclick = () => { screenMsg("Synchronisation…", ""); boot(); };
   $("st").onclick = screenStats;
-  if ($("ad")) $("ad").onclick = screenAdmin;
+  if ($("ad")) $("ad").onclick = () => screenAdmin();
+  if ($("rqb")) refreshReqBadge();
   if ($("lgi")){
     $("lgi").onclick = async () => {
       const m = $("lgm"); m.className = "msg muted"; m.textContent = "Import…";
@@ -584,16 +650,45 @@ async function screenStats(){
 let AV = [];
 function parseEs(str){ return String(str || "").split("/").map(s => s.trim()).filter(Boolean); }
 function admMsg(txt, ok){ const m = $("am"); if (m){ m.className = "msg " + (ok ? "good" : "bad"); m.textContent = txt; } }
+let AR = [];
+function reqRows(){
+  if (!AR.length) return '<p class="muted small">Aucune demande en attente.</p>';
+  return '<div style="border-top:1px solid var(--border)">'+AR.map(q =>
+    '<div class="vrow" data-rid="'+esc(q.id)+'" style="align-items:flex-start"><span class="t"><b>'+esc(q.email)+'</b><br><span class="muted small">'+esc(srcLabel(q.source))+(q.source_detail ? ' : '+esc(q.source_detail) : '')+' · Paraguay : '+(q.in_paraguay ? "oui" : "non")+' · '+new Date(q.created_at).toLocaleDateString("fr-FR")+'</span></span>'+
+    '<span style="white-space:nowrap"><button class="small primary" data-r="a">Approuver</button> <button class="small" data-r="r">Rejeter</button></span></div>').join("")+'</div>';
+}
+function bindReqRows(){
+  const box = $("rq"); if (!box) return;
+  box.innerHTML = reqRows();
+  box.querySelectorAll("button[data-r]").forEach(b => {
+    b.onclick = async () => {
+      const row = b.closest(".vrow"), id = row.dataset.rid, q = AR.find(x => x.id === id);
+      row.querySelectorAll("button").forEach(x => x.disabled = true);
+      if (b.dataset.r === "r"){
+        const r = await sb.from("access_requests").update({ status:"rejected", decided_at:new Date().toISOString() }).eq("id", id);
+        if (r.error){ admMsg("Rejet impossible.", false); row.querySelectorAll("button").forEach(x => x.disabled = false); return; }
+        AR = AR.filter(x => x.id !== id); bindReqRows(); admMsg("Demande rejetée.", true); return;
+      }
+      let r;
+      try{ r = await sb.functions.invoke("approve-request", { body:{ id:id } }); }catch(e){ r = { error:e }; }
+      if (r.error || (r.data && r.data.error)){ admMsg("Approbation impossible : " + ((r.data && r.data.error) || "la fonction d'invitation n'a pas répondu."), false); row.querySelectorAll("button").forEach(x => x.disabled = false); return; }
+      AR = AR.filter(x => x.id !== id); bindReqRows(); admMsg("Demande approuvée : une invitation a été envoyée à " + (q ? q.email : "l'adresse") + ".", true);
+    };
+  });
+}
 async function screenAdmin(){
   if (S.role !== "admin") return home();
   root.innerHTML = '<p class="muted small center">Chargement…</p>';
-  const [vr, ur] = await Promise.all([
+  const [vr, ur, rq] = await Promise.all([
     sb.from("verbs").select("id,fr,es,active").order("id").range(0, 999),
-    sb.from("profiles").select("email,role,created_at").order("created_at")
+    sb.from("profiles").select("email,role,created_at").order("created_at"),
+    sb.from("access_requests").select("id,email,source,source_detail,in_paraguay,created_at").eq("status", "pending").order("created_at")
   ]);
+  AR = rq.error ? [] : (rq.data || []);
   if (vr.error){ root.innerHTML = '<p><button class="small" id="bk">← Accueil</button></p><p class="center bad small">Administration indisponible pour le moment.</p>'; $("bk").onclick = home; return; }
   AV = vr.data || [];
   let h = '<p><button class="small" id="bk">← Accueil</button></p><h1>Administration</h1><div id="am" class="msg"></div>';
+  h += '<h2>Demandes d\'accès</h2><div id="rq"></div>';
   h += '<h2>Ajouter un verbe</h2><div class="row" style="justify-content:flex-start"><input type="text" id="nf" placeholder="Français (ex. conduire)" style="flex:1;min-width:150px"><input type="text" id="ne" placeholder="Espagnol (variantes séparées par /)" style="flex:1;min-width:150px"><button class="primary small" id="na">Ajouter</button></div>';
   h += '<h2>Importer en lot</h2><textarea id="imp" rows="4" placeholder="Une ligne par verbe : français|espagnol1/espagnol2"></textarea><p style="margin:6px 0 0"><button class="small" id="imb">Importer</button> <span class="muted small">Les verbes déjà présents (même texte français) sont ignorés.</span></p>';
   h += '<h2>Verbes ('+AV.length+')</h2><input type="text" id="fl" placeholder="Rechercher…" style="width:100%;margin-bottom:6px"><div id="vl"></div>';
@@ -601,9 +696,10 @@ async function screenAdmin(){
   if (ur.error) h += '<p class="muted small">Liste indisponible.</p>';
   else {
     h += '<div style="border-top:1px solid var(--border)">'+(ur.data || []).map(u => '<div class="vrow"><span class="t">'+esc(u.email)+'</span><span class="muted small">'+esc(u.role === "admin" ? "administrateur" : "utilisateur")+'</span></div>').join("")+'</div>';
-    h += '<p class="muted small">Pour inviter quelqu\'un : tableau de bord Supabase, Authentication, Users, puis invitation par email.</p>';
+    h += '<p class="muted small">Les nouveaux utilisateurs arrivent par les demandes d\'accès ci-dessus. Invitation manuelle possible : tableau de bord Supabase, Authentication, Users.</p>';
   }
   root.innerHTML = h;
+  bindReqRows();
   $("bk").onclick = home;
   $("na").onclick = adminAdd;
   $("imb").onclick = adminImport;
