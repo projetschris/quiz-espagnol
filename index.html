@@ -3,43 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mes quiz</title>
+<title>Communiquer en Espagnol</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2030%2020'%3E%3Crect%20width='30'%20height='7'%20fill='%23D52B1E'/%3E%3Crect%20y='7'%20width='30'%20height='6'%20fill='%23FFFFFF'/%3E%3Crect%20y='13'%20width='30'%20height='7'%20fill='%230038A8'/%3E%3Ccircle%20cx='15'%20cy='10'%20r='3.2'%20fill='none'%20stroke='%232E7D32'%20stroke-width='1'/%3E%3Ccircle%20cx='15'%20cy='10'%20r='1'%20fill='%23F2C200'/%3E%3C/svg%3E">
 <style>
-:root{--bg:#f5f5f2;--card:#ffffff;--text:#1f1f1c;--muted:#6b6b66;--border:#dcdcd5;--accent:#2f6fdb}
-@media (prefers-color-scheme:dark){:root{--bg:#18181a;--card:#242427;--text:#ececea;--muted:#9a9a94;--border:#3a3a3f;--accent:#6aa0ff}}
+:root{--bg:#f5f5f2;--card:#ffffff;--text:#1f1f1c;--muted:#6b6b66;--border:#dcdcd5;--accent:#2f6fdb;--tint:#e2ecfb;--tintb:#b9cdf0}
+@media (prefers-color-scheme:dark){:root{--bg:#18181a;--card:#242427;--text:#ececea;--muted:#9a9a94;--border:#3a3a3f;--accent:#6aa0ff;--tint:#1d2d4a;--tintb:#2f4a78}}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.4}
 main{max-width:640px;margin:0 auto;padding:24px 16px}
-h1{font-size:22px;font-weight:600;margin:0 0 6px}
-p.sub{color:var(--muted);font-size:14px;margin:0 0 24px}
-.quiz{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:0 0 12px;text-decoration:none;color:inherit}
-.quiz:hover{border-color:var(--accent)}
-.quiz svg{width:44px;height:30px;flex:none;border-radius:4px;border:1px solid var(--border)}
-.quiz b{display:block;font-size:17px;font-weight:600}
-.quiz span{font-size:13px;color:var(--muted)}
+h1{font-size:26px;font-weight:700;margin:0 0 4px;text-align:center}
+.sub{font-size:12px;color:var(--muted);text-align:center;margin:0 0 26px}
+h2{font-size:19px;font-weight:600;margin:0 0 2px}
+h3{font-size:15px;font-weight:500;color:var(--muted);margin:0 0 14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quiz{display:flex;align-items:center;justify-content:center;gap:10px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 10px;text-decoration:none;color:inherit}
+.quiz:hover,.quiz:focus-visible{border-color:var(--accent)}
+.quiz svg{width:44px;height:30px;flex:none;border-radius:3px;border:1px solid var(--border)}
+.quiz .ar{font-size:22px;color:var(--muted)}
+.soon{border:1px dashed var(--border);border-radius:14px;padding:12px;text-align:center;font-size:13px;color:var(--muted);margin:22px 0 0}
+.love{background:var(--tint);border:1px solid var(--tintb);border-radius:12px;padding:14px;margin:22px 0 0;text-align:center}
+.love b{display:block;margin-bottom:10px;font-size:14px}
+.love .row{display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap}
+.love button{font:inherit;font-size:14px;background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;cursor:pointer}
+.love button svg{width:16px;height:16px;vertical-align:-3px;margin-right:6px}
+.love a.bmc img{display:block;height:40px;width:auto;border-radius:6px}
+.love .sh{font-size:12px;color:var(--muted);margin:8px 0 0;min-height:16px}
 .foot{margin:24px 0 0;text-align:center;font-size:12px;color:var(--muted)}
-.foot a{color:var(--muted)}
 </style>
 </head>
 <body>
 <main>
-<h1>Mes quiz</h1>
-<p class="sub">Choisissez un quiz.</p>
-<a class="quiz" href="espagnol-verbes/?quiz=fr_es">
-<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="7" fill="#D52B1E"/><rect y="7" width="30" height="6" fill="#FFFFFF"/><rect y="13" width="30" height="7" fill="#0038A8"/><circle cx="15" cy="10" r="3.2" fill="none" stroke="#2E7D32" stroke-width="1"/><circle cx="15" cy="10" r="1" fill="#F2C200"/></svg>
-<div><b>Verbes espagnol (Paraguay) : Français → Espagnol</b><span>20 questions · modes et niveaux au choix · progression enregistrée</span></div>
-</a>
-<a class="quiz" href="espagnol-verbes/?quiz=es_fr">
-<svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="7" fill="#D52B1E"/><rect y="7" width="30" height="6" fill="#FFFFFF"/><rect y="13" width="30" height="7" fill="#0038A8"/><circle cx="15" cy="10" r="3.2" fill="none" stroke="#2E7D32" stroke-width="1"/><circle cx="15" cy="10" r="1" fill="#F2C200"/></svg>
-<div><b>Verbes espagnol (Paraguay) : Espagnol → Français</b><span>20 questions · modes et niveaux au choix · progression enregistrée</span></div>
-</a>
-<p class="foot">© 2026 projetschris — Tous droits réservés<span id="coffee"></span></p>
+<h1>Communiquer en Espagnol</h1>
+<p class="sub">Quiz de 20 questions</p>
+<h2>Verbes</h2>
+<h3>À l'infinitif</h3>
+<div class="two">
+<a class="quiz" href="espagnol-verbes/?quiz=fr_es" aria-label="Quiz du français vers l'espagnol"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#0055A4"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#EF4135"/></svg><span class="ar" aria-hidden="true">→</span><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg></a>
+<a class="quiz" href="espagnol-verbes/?quiz=es_fr" aria-label="Quiz de l'espagnol vers le français"><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#AA151B"/><rect y="5" width="30" height="10" fill="#F1BF00"/></svg><span class="ar" aria-hidden="true">→</span><svg viewBox="0 0 30 20" aria-hidden="true"><rect width="10" height="20" fill="#0055A4"/><rect x="10" width="10" height="20" fill="#fff"/><rect x="20" width="10" height="20" fill="#EF4135"/></svg></a>
+</div>
+<div class="soon">D'autres quiz arriveront ici (par exemple « Conjugaison »).</div>
+<div class="love"><b>Vous aimez ? Faites-le connaître.</b><div class="row">
+<button type="button" id="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"/></svg>Partager</button>
+<a class="bmc" id="bmc" href="https://buymeacoffee.com/projetschris" target="_blank" rel="noopener noreferrer"><img src="data:image/png;base64,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" alt="Buy me a coffee" width="143" height="40"></a>
+</div><div class="sh" id="sh" role="status"></div></div>
+<p class="foot">© 2026 projetschris — Tous droits réservés</p>
 </main>
 <script>
-/* Facultatif : nom de votre page « Buy me a coffee » (laisser vide pour masquer le lien). */
-const COFFEE_ID = "";
-if (COFFEE_ID && /^[A-Za-z0-9_.-]+$/.test(COFFEE_ID)) document.getElementById("coffee").innerHTML = ' · <a href="https://buymeacoffee.com/' + COFFEE_ID + '" target="_blank" rel="noopener noreferrer">☕ Offrir un café</a>';
+/* Facultatif : nom de votre page « Buy me a coffee » (laisser vide pour masquer le bouton). */
+const COFFEE_ID = "projetschris";
+const SHARE_TEXT = "Tu veux apprendre facilement à communiquer en espagnol ? Essaie ça, c'est parfait !";
+if (!COFFEE_ID || !/^[A-Za-z0-9_.-]+$/.test(COFFEE_ID)) document.getElementById("bmc").remove();
+else document.getElementById("bmc").href = "https://buymeacoffee.com/" + COFFEE_ID;
+document.getElementById("share").onclick = async function () {
+  const out = document.getElementById("sh"), url = location.href.split("#")[0].split("?")[0];
+  try { if (navigator.share) { await navigator.share({ title: "Communiquer en espagnol", text: SHARE_TEXT, url: url }); return; } }
+  catch (e) { if (e && e.name === "AbortError") return; }
+  try { await navigator.clipboard.writeText(SHARE_TEXT + "\n" + url); out.textContent = "Message copié."; }
+  catch (e) { out.textContent = "Copiez ce lien : " + url; }
+};
 </script>
 </body>
 </html>
